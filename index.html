@@ -7,268 +7,113 @@
 <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&display=swap" rel="stylesheet">
 
 <style>
-/* Whatsapp Button */
-.whatsapp {
-  position: fixed;
-  bottom: 20px;
-  left: 20px;
-  background: #25D366;
-  color: white;
-  width: 60px;
-  height: 60px;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 30px;
-  text-decoration: none;
-  box-shadow: 0 0 15px #25D366;
-  z-index: 1000;
-}
-
-/* Body */
 body{
   margin:0;
   font-family:'Cairo', sans-serif;
-  background: linear-gradient(180deg,#05070d,#0b0f1a);
+  background:linear-gradient(180deg,#05070d,#0b0f1a);
   color:#eaeaea;
 }
 
-/* Navbar */
+/* ===== Navbar ===== */
 nav{
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  background: rgba(0,0,0,0.9);
-  padding: 15px 40px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  backdrop-filter: blur(10px);
-  border-bottom:1px solid #1f2933;
-  z-index: 9999;
+  position:fixed;
+  top:0;
+  left:0;
+  width:100%;
+  background:rgba(0,0,0,0.9);
+  padding:15px 30px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  z-index:999;
 }
 
-nav .brand {
-  font-size: 26px;
-  font-weight: 900;
-  background: linear-gradient(90deg,#f5c16c,#00cfff);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  letter-spacing: 1px;
-  text-shadow: 1px 1px 3px rgba(0,0,0,0.6);
-  flex-shrink: 0;  
-  min-width: 200px;
-  margin-right: auto;
-}
-
-nav div {
-  display: flex;
-  gap: 15px; 
-  justify-content: flex-end;
-}
-
-nav a {
-  color:#eaeaea;
-  text-decoration: none;
-  font-weight:700;
-  font-size:20px;
-  padding: 8px 12px;
-  border-radius:8px;
-  transition:0.3s;
-}
-nav a:hover{
-  background:#00cfff;
-  color:#000;
-}
-
-/* Container */
-.container{
-  padding:120px 25px 40px;
-  animation:fade 0.6s ease;
-}
-
-@keyframes fade{
-  from{opacity:0; transform:translateY(20px);}
-  to{opacity:1; transform:translateY(0);}
-}
-
-/* Hero */
-.hero{
-  text-align:center;
-  padding:90px 20px;
-}
-
-.hero h1{
-  font-size:52px;
+.brand{
+  font-size:26px;
   font-weight:800;
-  margin-bottom:15px;
   background:linear-gradient(90deg,#f5c16c,#00cfff);
   -webkit-background-clip:text;
   -webkit-text-fill-color:transparent;
 }
 
-.hero p{
-  font-size:20px;
-  color:#bfc7d5;
-  max-width:700px;
-  margin:auto;
+nav a{
+  color:#ddd;
+  margin:0 12px;
+  cursor:pointer;
+  font-size:18px;
+  font-weight:600;
+  text-decoration:none;
 }
 
-/* Buttons */
-.btn {
-  background: linear-gradient(90deg,#f5c16c,#ff9f1c);
-  color: #000;
-  padding: 18px 50px;
-  border: none;
-  border-radius: 40px;
-  font-weight: 800;
-  font-size: 22px;
-  cursor: pointer;
-  margin-top: 30px;
-  transition: 0.3s;
-  box-shadow: 0 10px 30px rgba(245,193,108,0.3);
+nav a:hover{color:#00cfff}
+
+/* ===== Containers ===== */
+.container{
+  padding:120px 25px 40px;
 }
 
-.btn:hover {
-  transform: translateY(-4px) scale(1.05);
-  box-shadow: 0 15px 40px rgba(245,193,108,0.5);
+.hidden{display:none}
+
+/* ===== Buttons ===== */
+.btn{
+  background:linear-gradient(90deg,#f5c16c,#ff9f1c);
+  border:none;
+  padding:14px 30px;
+  border-radius:30px;
+  font-size:18px;
+  font-weight:700;
+  cursor:pointer;
 }
 
-/* Sections */
-.section{
-  margin-top:70px;
-  text-align:center;
-}
-
-.section h2{
-  font-size:32px;
-  margin-bottom:30px;
-  color:#00cfff;
-}
-
-/* Grid & Cards */
+/* ===== Grid ===== */
 .grid{
   display:flex;
   flex-wrap:wrap;
   justify-content:center;
 }
 
-.card {
-  background: linear-gradient(180deg,#0e1322,#0a0f1d);
-  margin: 18px;
-  padding: 30px;
-  width: 280px;
-  border-radius: 18px;
-  cursor: pointer;
-  transition: 0.35s;
-  border: 1px solid #1f2933;
-  color: #eaeaea;
-  font-weight: 600;
-  font-size: 18px;
-}
-
-.card:hover {
-  box-shadow: 0 0 30px rgba(0,207,255,0.4);
-  transform: translateY(-8px);
-  color: #00cfff;
-}
-
-/* Lesson Box */
-.hidden{display:none;}
-
-.lesson-box {
-  background: #0e1322;
-  padding: 40px;
-  border-radius: 18px;
-  line-height: 1.8;
+.card{
+  background:#0e1322;
   border:1px solid #1f2933;
-  color:#e0e0e0;
-  font-size:18px;
-  text-align:right;
-  max-height: 80vh;
-  overflow-y: auto;
-}
-
-.lesson-box h2 {
-  color: #f5c16c;
-  font-size:28px;
-  margin-bottom:20px;
-}
-
-.lesson-box h3 {
-  color: #00cfff;
-  font-size:22px;
-  margin-top:20px;
-}
-
-.lesson-box p, .lesson-box li {
-  font-size:18px;
-  margin-bottom:10px;
-}
-
-/* Inputs */
-input, textarea {
-  width: 100%;
-  padding: 14px;
-  margin: 12px 0;
-  border-radius: 10px;
-  border: none;
-  font-size:16px;
-}
-
-/* Iframe Video */
-iframe {
-  width: 100%;
-  height: 300px;
-  border-radius:12px;
-  border:none;
-}
-
-/* Footer */
-footer{
-  text-align:center;
+  border-radius:16px;
   padding:25px;
+  margin:15px;
+  width:260px;
+  cursor:pointer;
+  text-align:center;
+  font-size:18px;
+}
+
+.card:hover{
+  color:#00cfff;
+  box-shadow:0 0 25px rgba(0,207,255,0.4);
+}
+
+/* ===== Lesson ===== */
+.lesson-box{
+  background:#0e1322;
+  border-radius:18px;
+  padding:30px;
+  border:1px solid #1f2933;
+  line-height:2;
+  font-size:18px;
+}
+
+.lesson-box h3{color:#f5c16c}
+.lesson-box h4{color:#00cfff}
+
+/* ===== Footer ===== */
+footer{
   background:#000;
-  color:#888;
-  font-size:15px;
-  margin-top:80px;
+  text-align:center;
+  padding:20px;
+  margin-top:60px;
+  color:#777;
 }
-
-/* Responsive */
-@media screen and (max-width: 768px) {
-  nav {
-    padding: 12px 20px;
-    flex-direction: column;
-    align-items: flex-start;
-  }
-  nav a {
-    margin: 6px 0;
-    font-size: 18px;
-  }
-  .hero h1 { font-size: 36px; }
-  .hero p { font-size: 16px; }
-  .btn { font-size: 18px; padding: 14px 35px; }
-  .card { width: 90%; font-size: 16px; padding: 20px; }
-  .lesson-box { padding: 25px; font-size: 16px; }
-  iframe { height: 200px; }
-}
-@media screen and (max-width: 480px) {
-  .hero h1 { font-size: 28px; }
-  .hero p { font-size: 14px; }
-  nav a { font-size: 16px; }
-  .btn { font-size: 16px; padding: 12px 30px; }
-}
-
-/* Smooth Scroll */
-html { scroll-behavior: smooth; }
 </style>
 </head>
 
 <body>
-
-<a href="https://wa.me/249900623733" target="_blank" class="whatsapp">💬</a>
 
 <nav>
   <div class="brand">HOota O Black</div>
@@ -276,126 +121,105 @@ html { scroll-behavior: smooth; }
     <a onclick="showHome()">الرئيسية</a>
     <a onclick="showCourse()">الكورس</a>
     <a href="https://www.youtube.com/channel/UCDHo57HZnBCwPB0215yQXlA" target="_blank">يوتيوب</a>
-    <a href="#contact" onclick="scrollToContact()">تواصل معنا</a>
   </div>
 </nav>
 
 <!-- الصفحة الرئيسية -->
 <div id="home" class="container">
-  <div class="hero">
-    <h1>تعلم إنشاء المواقع من الصفر حتى الاحتراف</h1>
-    <p>أكاديمية عربية متخصصة في تعليم برمجة وتصميم مواقع الويب بطريقة سهلة وعملية</p>
-    <button class="btn" onclick="showCourse()">ابدأ الكورس</button>
-  </div>
-
-  <div class="section">
-    <h2>سجل الآن في الأكاديمية</h2>
-    <div class="lesson-box">
-      <input placeholder="اسمك الكامل">
-      <input placeholder="البريد الإلكتروني">
-      <input placeholder="رقم الهاتف">
-      <button class="btn">تسجيل</button>
-    </div>
-  </div>
-
-  <div class="section">
-    <h2>ماذا ستتعلم في الأكاديمية؟</h2>
-    <div class="grid">
-      <div class="card" onclick="openLesson(1)">HTML – بناء هيكل المواقع</div>
-      <div class="card" onclick="openLesson(2)">CSS – تصميم واجهات احترافية</div>
-      <div class="card" onclick="openLesson(3)">JavaScript – التفاعل والبرمجة</div>
-      <div class="card" onclick="openLesson(4)">مشروع موقع متكامل</div>
-    </div>
-  </div>
+  <h1>تعلم إنشاء المواقع من الصفر</h1>
+  <p>كورس عربي متكامل لتعلم HTML و CSS و JavaScript</p>
+  <button class="btn" onclick="showCourse()">ابدأ التعلم</button>
 </div>
 
 <!-- صفحة الكورس -->
 <div id="course" class="container hidden">
-  <h2>محتوى الكورس</h2>
+  <h2>كورس HTML</h2>
   <div class="grid">
-    <div class="card" onclick="openLesson(1)">HTML – أساسيات بناء المواقع</div>
-    <div class="card" onclick="openLesson(2)">CSS – التصميم والتنسيق</div>
-    <div class="card" onclick="openLesson(3)">JavaScript – التفاعل والذكاء</div>
-    <div class="card" onclick="openLesson(4)">مشروع تطبيقي كامل</div>
+    <div class="card" onclick="openHTMLLesson(0)">الدرس 1 – مقدمة HTML</div>
+    <div class="card" onclick="openHTMLLesson(1)">الدرس 2 – الوسوم</div>
+    <div class="card" onclick="openHTMLLesson(2)">الدرس 3 – هيكل الصفحة</div>
+    <div class="card" onclick="openHTMLLesson(3)">الدرس 4 – أشهر الوسوم</div>
+    <div class="card" onclick="openHTMLLesson(4)">الدرس 5 – المميزات والعيوب</div>
+    <div class="card" onclick="openHTMLLesson(5)">الدرس 6 – مقارنة اللغات</div>
   </div>
 </div>
 
 <!-- صفحة الدرس -->
 <div id="lesson" class="container hidden">
-  <button class="btn" onclick="showCourse()">⬅ الرجوع للكورس</button>
   <div class="lesson-box">
     <h2 id="lessonTitle"></h2>
     <div id="lessonContent"></div>
   </div>
 
-  <div class="section">
-    <h2>فيديوهات تعليمية</h2>
-    <div class="grid">
-      <iframe src="https://www.youtube.com/embed/dQw4w9WgXcQ" allowfullscreen></iframe>
-    </div>
+  <div style="margin-top:25px; display:flex; gap:15px; flex-wrap:wrap;">
+    <button class="btn" onclick="prevHTML()">⬅ السابق</button>
+    <button class="btn" onclick="nextHTML()">➡ التالي</button>
+    <button class="btn" onclick="showCourse()">📚 الكورس</button>
   </div>
 </div>
 
-<!-- قسم تواصل معنا -->
-<div id="contact" class="container section">
-  <h2>تواصل معنا</h2>
-  <div class="lesson-box">
-    <input type="text" placeholder="اسمك الكامل">
-    <input type="email" placeholder="البريد الإلكتروني">
-    <textarea placeholder="رسالتك"></textarea>
-    <button class="btn">إرسال</button>
-  </div>
-</div>
-
-<!-- Footer -->
 <footer>
-  © 2025 HOota O Black Academy – جميع الحقوق محفوظة
-  <br>
-  <a href="https://www.youtube.com/channel/UCDHo57HZnBCwPB0215yQXlA" 
-     target="_blank" 
-     style="display:inline-block; padding:10px 18px; background:#FF0000; color:white; text-decoration:none; border-radius:6px; font-weight:bold; margin-top:10px;">
-     تابع قناتي على يوتيوب
-  </a>
+© 2025 HOota O Black Academy
 </footer>
 
 <script>
 const lessons = {
-  1:{ title:"HTML – أساسيات بناء المواقع", content:`
-<p>HTML هي حجر الأساس لأي موقع ويب...</p>
-<p>هنا شرح موسع لكل العناصر...</p>
-<!-- ضع محتوى طويل هنا يصل إلى 200 سطر عند التوسع -->
-`},
-  2:{ title:"CSS – التصميم والتنسيق", content:`<p>CSS مسؤولة عن تصميم الصفحة...</p>`},
-  3:{ title:"JavaScript – التفاعل", content:`<p>JavaScript تجعل الصفحة تفاعلية...</p>`},
-  4:{ title:"مشروع تطبيقي متكامل", content:`<p>مشروع عملي يجمع HTML وCSS وJS...</p>`}
+  html: [
+    {
+      title:"مقدمة HTML",
+      content:`<h3>ما هي HTML؟</h3><p>HTML هي لغة ترميز تُستخدم لبناء الهيكل الأساسي لصفحات الويب...</p>`
+    },
+    {
+      title:"الوسوم",
+      content:`<h3>ما هي الوسوم؟</h3><p>الوسم هو كلمة محاطة بعلامتي &lt; &gt;...</p>`
+    },
+    {
+      title:"هيكل الصفحة",
+      content:`<h3>الهيكل الأساسي</h3><p>كل صفحة HTML تحتوي على html و head و body...</p>`
+    },
+    {
+      title:"أشهر الوسوم",
+      content:`<h3>العناوين والروابط</h3><p>من h1 إلى h6...</p>`
+    },
+    {
+      title:"المميزات والعيوب",
+      content:`<h3>مميزات HTML</h3><ul><li>سهلة</li></ul>`
+    },
+    {
+      title:"مقارنة اللغات",
+      content:`<h3>HTML vs CSS vs JS</h3><p>كل لغة لها دور...</p>`
+    }
+  ]
 };
 
+let currentHTMLLesson = 0;
+
 function hideAll(){
-  document.getElementById("home").classList.add("hidden");
-  document.getElementById("course").classList.add("hidden");
-  document.getElementById("lesson").classList.add("hidden");
+  home.classList.add("hidden");
+  course.classList.add("hidden");
+  lesson.classList.add("hidden");
 }
 
-function showHome(){
-  hideAll();
-  document.getElementById("home").classList.remove("hidden");
+function showHome(){hideAll(); home.classList.remove("hidden")}
+function showCourse(){hideAll(); course.classList.remove("hidden")}
+
+function openHTMLLesson(i){
+  currentHTMLLesson=i;
+  lessonTitle.innerText=lessons.html[i].title;
+  lessonContent.innerHTML=lessons.html[i].content;
+  hideAll(); lesson.classList.remove("hidden");
 }
 
-function showCourse(){
-  hideAll();
-  document.getElementById("course").classList.remove("hidden");
+function nextHTML(){
+  if(currentHTMLLesson < lessons.html.length-1)
+    openHTMLLesson(currentHTMLLesson+1);
 }
 
-function openLesson(num){
-  hideAll();
-  document.getElementById("lesson").classList.remove("hidden");
-  document.getElementById("lessonTitle").innerHTML = lessons[num].title;
-  document.getElementById("lessonContent").innerHTML = lessons[num].content;
-}
-
-function scrollToContact(){
-  document.getElementById("contact").scrollIntoView({behavior:"smooth"});
+function prevHTML(){
+  if(currentHTMLLesson>0)
+    openHTMLLesson(currentHTMLLesson-1);
 }
 </script>
+
 </body>
 </html>
