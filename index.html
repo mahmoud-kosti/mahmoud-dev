@@ -949,8 +949,73 @@ JavaScript هو العقل.
 </p>
 `
 },
-  4:{ title:"مشروع تطبيقي متكامل", content:`<p>مشروع عملي يجمع HTML وCSS وJS...</p>`}
-};
+  <!DOCTYPE html>
+<html lang="ar">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>فاتورة رقم 4</title>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #f7f7f7;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        margin: 0;
+    }
+    .invoice-box {
+        background-color: #fff;
+        padding: 30px;
+        border-radius: 10px;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        width: 350px;
+        text-align: center;
+    }
+    .invoice-box h1 {
+        font-size: 24px;
+        color: #333;
+    }
+    .invoice-number {
+        font-size: 48px;
+        font-weight: bold;
+        color: #e74c3c;
+        margin: 20px 0;
+    }
+    button {
+        padding: 10px 20px;
+        font-size: 16px;
+        background-color: #3498db;
+        color: #fff;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+    button:hover {
+        background-color: #2980b9;
+    }
+</style>
+</head>
+<body>
+
+<div class="invoice-box">
+    <h1>رقم الفاتورة</h1>
+    <div class="invoice-number" id="invoiceNumber">4</div>
+    <button onclick="nextInvoice()">فاتورة جديدة</button>
+</div>
+
+<script>
+    let currentInvoice = 4; // الرقم الابتدائي
+
+    function nextInvoice() {
+        currentInvoice++; // زيادة الرقم
+        document.getElementById('invoiceNumber').textContent = currentInvoice;
+    }
+</script>
+
+</body>
+</html>
 
 function hideAll(){
   document.getElementById("home").classList.add("hidden");
