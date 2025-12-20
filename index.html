@@ -101,15 +101,23 @@ nav a:hover{
 
 /* ====== Buttons ====== */
 .btn {
-  background: linear-gradient(90deg, #f5c16c, #f0a500); /* أخف من الأصفر والبرتقالي الفاقع */
+  background: linear-gradient(90deg,#f5c16c,#ff9f1c); /* ألوان أكثر وضوحًا */
   color: #000;
+  padding: 18px 50px; /* زيادة الحجم */
+  border: none;
+  border-radius: 40px;
+  font-weight: 800;
+  font-size: 22px; /* تكبير الخط */
+  cursor: pointer;
+  margin-top: 30px;
+  transition: 0.3s;
+  box-shadow: 0 10px 30px rgba(245,193,108,0.3);
 }
 
-.btn:hover{
-  transform:translateY(-4px) scale(1.03);
-  box-shadow:0 15px 40px rgba(245,193,108,0.5);
+.btn:hover {
+  transform: translateY(-4px) scale(1.05);
+  box-shadow: 0 15px 40px rgba(245,193,108,0.5);
 }
-
 /* ====== Sections ====== */
 .section{
   margin-top:70px;
