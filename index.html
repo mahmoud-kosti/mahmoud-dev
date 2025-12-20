@@ -226,45 +226,6 @@ iframe {
   border:none;
 }
 
-/* Invoice Box */
-.invoice-box {
-  background-color: #1b1b1b;
-  padding: 30px;
-  border-radius: 18px;
-  color: #eaeaea;
-  text-align: center;
-  max-width: 400px;
-  margin: 40px auto;
-  border: 1px solid #1f2933;
-}
-
-.invoice-box h1 {
-  font-size: 28px;
-  color: #f5c16c;
-}
-
-.invoice-number {
-  font-size: 48px;
-  font-weight: bold;
-  color: #00cfff;
-  margin: 20px 0;
-}
-
-.invoice-box button {
-  padding: 10px 20px;
-  font-size: 16px;
-  background-color: #3498db;
-  color: #fff;
-  border: none;
-  border-radius: 10px;
-  cursor: pointer;
-  transition:0.3s;
-}
-
-.invoice-box button:hover {
-  background-color: #2980b9;
-}
-
 /* Footer */
 footer{
   text-align:center;
@@ -277,8 +238,15 @@ footer{
 
 /* Responsive */
 @media screen and (max-width: 768px) {
-  nav { padding: 12px 20px; flex-direction: column; align-items: flex-start; }
-  nav a { margin: 6px 0; font-size: 18px; }
+  nav {
+    padding: 12px 20px;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  nav a {
+    margin: 6px 0;
+    font-size: 18px;
+  }
   .hero h1 { font-size: 36px; }
   .hero p { font-size: 16px; }
   .btn { font-size: 18px; padding: 14px 35px; }
@@ -309,7 +277,6 @@ html { scroll-behavior: smooth; }
     <a onclick="showCourse()">الكورس</a>
     <a href="https://www.youtube.com/channel/UCDHo57HZnBCwPB0215yQXlA" target="_blank">يوتيوب</a>
     <a href="#contact" onclick="scrollToContact()">تواصل معنا</a>
-    <a onclick="showInvoice()">فاتورة رقم 4</a>
   </div>
 </nav>
 
@@ -369,19 +336,6 @@ html { scroll-behavior: smooth; }
   </div>
 </div>
 
-<!-- صفحة الفاتورة رقم 4 -->
-<div id="invoice" class="container hidden">
-  <div class="invoice-box">
-    <h1>رقم الفاتورة</h1>
-    <div class="invoice-number" id="invoiceNumber">4</div>
-    <button onclick="nextInvoice()">فاتورة جديدة</button>
-    <p style="margin-top:20px; font-size:16px; color:#bfc7d5;">
-      هذا النص هو الكلام الخارجي المضاف داخل الفاتورة رقم 4.
-      يمكن تغييره أو تحديثه حسب الحاجة.
-    </p>
-  </div>
-</div>
-
 <!-- قسم تواصل معنا -->
 <div id="contact" class="container section">
   <h2>تواصل معنا</h2>
@@ -406,29 +360,20 @@ html { scroll-behavior: smooth; }
 
 <script>
 const lessons = {
-  1:{
-    title:"HTML – أساسيات بناء المواقع",
-    content:`<h3>الدرس الأول: HTML</h3><p>محتوى HTML هنا...</p>`
-  },
-  2:{
-    title:"CSS – تصميم وتنسيق صفحات الويب",
-    content:`<h3>الدرس الثاني: CSS</h3><p>محتوى CSS هنا...</p>`
-  },
-  3:{
-    title:"JavaScript – بث الحياة في صفحات الويب",
-    content:`<h3>الدرس الثالث: JS</h3><p>محتوى JavaScript هنا...</p>`
-  },
-  4:{
-    title:"مشروع تطبيقي كامل",
-    content:`<h3>الدرس الرابع: مشروع تطبيقي</h3><p>محتوى المشروع الكامل هنا...</p>`
-  }
+  1:{ title:"HTML – أساسيات بناء المواقع", content:`
+<p>HTML هي حجر الأساس لأي موقع ويب...</p>
+<p>هنا شرح موسع لكل العناصر...</p>
+<!-- ضع محتوى طويل هنا يصل إلى 200 سطر عند التوسع -->
+`},
+  2:{ title:"CSS – التصميم والتنسيق", content:`<p>CSS مسؤولة عن تصميم الصفحة...</p>`},
+  3:{ title:"JavaScript – التفاعل", content:`<p>JavaScript تجعل الصفحة تفاعلية...</p>`},
+  4:{ title:"مشروع تطبيقي متكامل", content:`<p>مشروع عملي يجمع HTML وCSS وJS...</p>`}
 };
 
 function hideAll(){
   document.getElementById("home").classList.add("hidden");
   document.getElementById("course").classList.add("hidden");
   document.getElementById("lesson").classList.add("hidden");
-  document.getElementById("invoice").classList.add("hidden");
 }
 
 function showHome(){
@@ -451,20 +396,6 @@ function openLesson(num){
 function scrollToContact(){
   document.getElementById("contact").scrollIntoView({behavior:"smooth"});
 }
-
-// الفاتورة رقم 4
-let currentInvoice = 4;
-
-function nextInvoice(){
-  currentInvoice++;
-  document.getElementById('invoiceNumber').textContent = currentInvoice;
-}
-
-function showInvoice(){
-  hideAll();
-  document.getElementById("invoice").classList.remove("hidden");
-}
 </script>
-
 </body>
 </html>
