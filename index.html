@@ -7,7 +7,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&display=swap" rel="stylesheet">
 
 <style>
-/* ====== Whatsapp Button ====== */
+/* Whatsapp Button */
 .whatsapp {
   position: fixed;
   bottom: 20px;
@@ -26,7 +26,7 @@
   z-index: 1000;
 }
 
-/* ====== Body ====== */
+/* Body */
 body{
   margin:0;
   font-family:'Cairo', sans-serif;
@@ -34,7 +34,7 @@ body{
   color:#eaeaea;
 }
 
-/* ====== Navbar ====== */
+/* Navbar */
 nav{
   position: fixed;
   top: 0;
@@ -50,7 +50,6 @@ nav{
   z-index: 9999;
 }
 
-/* اسم الموقع على اليسار */
 nav .brand {
   font-size: 26px;
   font-weight: 900;
@@ -64,7 +63,6 @@ nav .brand {
   margin-right: auto;
 }
 
-/* روابط Navbar على اليمين */
 nav div {
   display: flex;
   gap: 15px; 
@@ -85,7 +83,7 @@ nav a:hover{
   color:#000;
 }
 
-/* ====== Container ====== */
+/* Container */
 .container{
   padding:120px 25px 40px;
   animation:fade 0.6s ease;
@@ -96,7 +94,7 @@ nav a:hover{
   to{opacity:1; transform:translateY(0);}
 }
 
-/* ====== Hero ====== */
+/* Hero */
 .hero{
   text-align:center;
   padding:90px 20px;
@@ -118,7 +116,7 @@ nav a:hover{
   margin:auto;
 }
 
-/* ====== Buttons ====== */
+/* Buttons */
 .btn {
   background: linear-gradient(90deg,#f5c16c,#ff9f1c);
   color: #000;
@@ -138,7 +136,7 @@ nav a:hover{
   box-shadow: 0 15px 40px rgba(245,193,108,0.5);
 }
 
-/* ====== Sections ====== */
+/* Sections */
 .section{
   margin-top:70px;
   text-align:center;
@@ -150,7 +148,7 @@ nav a:hover{
   color:#00cfff;
 }
 
-/* ====== Grid & Cards ====== */
+/* Grid & Cards */
 .grid{
   display:flex;
   flex-wrap:wrap;
@@ -177,7 +175,7 @@ nav a:hover{
   color: #00cfff;
 }
 
-/* ====== Lesson ====== */
+/* Lesson Box */
 .hidden{display:none;}
 
 .lesson-box {
@@ -210,7 +208,7 @@ nav a:hover{
   margin-bottom:10px;
 }
 
-/* ====== Inputs ====== */
+/* Inputs */
 input, textarea {
   width: 100%;
   padding: 14px;
@@ -220,7 +218,7 @@ input, textarea {
   font-size:16px;
 }
 
-/* ====== Iframe Video ====== */
+/* Iframe Video */
 iframe {
   width: 100%;
   height: 300px;
@@ -228,7 +226,7 @@ iframe {
   border:none;
 }
 
-/* ====== Footer ====== */
+/* Footer */
 footer{
   text-align:center;
   padding:25px;
@@ -238,71 +236,33 @@ footer{
   margin-top:80px;
 }
 
-/* ====== Responsive ====== */
+/* Responsive */
 @media screen and (max-width: 768px) {
   nav {
     padding: 12px 20px;
     flex-direction: column;
     align-items: flex-start;
   }
-
   nav a {
     margin: 6px 0;
     font-size: 18px;
   }
-
-  .hero h1 {
-    font-size: 36px;
-  }
-
-  .hero p {
-    font-size: 16px;
-  }
-
-  .btn {
-    font-size: 18px;
-    padding: 14px 35px;
-  }
-
-  .card {
-    width: 90%;
-    font-size: 16px;
-    padding: 20px;
-  }
-
-  .lesson-box {
-    padding: 25px;
-    font-size: 16px;
-  }
-
-  iframe {
-    height: 200px;
-  }
+  .hero h1 { font-size: 36px; }
+  .hero p { font-size: 16px; }
+  .btn { font-size: 18px; padding: 14px 35px; }
+  .card { width: 90%; font-size: 16px; padding: 20px; }
+  .lesson-box { padding: 25px; font-size: 16px; }
+  iframe { height: 200px; }
 }
-
 @media screen and (max-width: 480px) {
-  .hero h1 {
-    font-size: 28px;
-  }
-
-  .hero p {
-    font-size: 14px;
-  }
-
-  nav a {
-    font-size: 16px;
-  }
-
-  .btn {
-    font-size: 16px;
-    padding: 12px 30px;
-  }
+  .hero h1 { font-size: 28px; }
+  .hero p { font-size: 14px; }
+  nav a { font-size: 16px; }
+  .btn { font-size: 16px; padding: 12px 30px; }
 }
 
-/* ====== Smooth Scroll ====== */
-html {
-  scroll-behavior: smooth;
-}
+/* Smooth Scroll */
+html { scroll-behavior: smooth; }
 </style>
 </head>
 
@@ -316,7 +276,7 @@ html {
     <a onclick="showHome()">الرئيسية</a>
     <a onclick="showCourse()">الكورس</a>
     <a href="https://www.youtube.com/channel/UCDHo57HZnBCwPB0215yQXlA" target="_blank">يوتيوب</a>
-    <a href="#contact">تواصل معنا</a>
+    <a href="#contact" onclick="scrollToContact()">تواصل معنا</a>
   </div>
 </nav>
 
@@ -365,7 +325,7 @@ html {
   <button class="btn" onclick="showCourse()">⬅ الرجوع للكورس</button>
   <div class="lesson-box">
     <h2 id="lessonTitle"></h2>
-    <p id="lessonContent"></p>
+    <div id="lessonContent"></div>
   </div>
 
   <div class="section">
@@ -399,112 +359,15 @@ html {
 </footer>
 
 <script>
-// ====== الدروس الموسعة مع الأكواد ======
 const lessons = {
-  1: { title:"HTML – أساسيات بناء المواقع", content:`HTML هي حجر الأساس لأي موقع ويب، وتستخدم لإنشاء هيكل الصفحات وتنظيم المحتوى. 
-<p>في هذا الدرس سنتعلم كل شيء من البداية حتى الاحتراف.</p>
-
-<h3>1. الهيكل الأساسي للصفحة</h3>
-<p>كل صفحة HTML تبدأ بالهيكل التالي:</p>
-<pre>
-&lt;!DOCTYPE html&gt;
-&lt;html lang="ar"&gt;
-&lt;head&gt;
-  &lt;meta charset="UTF-8"&gt;
-  &lt;title&gt;موقعي الأول&lt;/title&gt;
-&lt;/head&gt;
-&lt;body&gt;
-  &lt;h1&gt;مرحبا بك&lt;/h1&gt;
-&lt;/body&gt;
-&lt;/html&gt;
-</pre>
-
-<h3>2. العناوين والفقرات</h3>
-<p>HTML تحتوي على 6 مستويات للعناوين h1-h6:</p>
-<pre>
-&lt;h1&gt;عنوان رئيسي&lt;/h1&gt;
-&lt;h2&gt;عنوان فرعي&lt;/h2&gt;
-&lt;p&gt;هذه فقرة نصية&lt;/p&gt;
-</pre>
-
-<h3>3. القوائم</h3>
-<p>قوائم غير مرتبة ومرتبة:</p>
-<pre>
-&lt;ul&gt;
-  &lt;li&gt;HTML&lt;/li&gt;
-  &lt;li&gt;CSS&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;ol&gt;
-  &lt;li&gt;الخطوة الأولى&lt;/li&gt;
-  &lt;li&gt;الخطوة الثانية&lt;/li&gt;
-&lt;/ol&gt;
-</pre>
-
-<h3>4. الروابط</h3>
-<p>إضافة الروابط:</p>
-<pre>
-&lt;a href="https://www.google.com" target="_blank"&gt;اذهب إلى جوجل&lt;/a&gt;
-</pre>
-
-<h3>5. الصور</h3>
-<pre>
-&lt;img src="logo.png" alt="شعار الموقع" width="200"&gt;
-</pre>
-
-<h3>6. النصوص والتنسيقات</h3>
-<p>&lt;strong&gt;لجعل النص عريض&lt;/strong>, &lt;em&gt;لجعل النص مائل&lt;/em>.</p>
-
-<h3>7. الجداول</h3>
-<pre>
-&lt;table border="1"&gt;
-  &lt;tr&gt;&lt;th&gt;الاسم&lt;/th&gt;&lt;th&gt;العمر&lt;/th&gt;&lt;/tr&gt;
-  &lt;tr&gt;&lt;td&gt;أحمد&lt;/td&gt;&lt;td&gt;25&lt;/td&gt;&lt;/tr&gt;
-&lt;/table&gt;
-</pre>
-
-<h3>8. النماذج (Forms)</h3>
-<pre>
-&lt;form action="/submit" method="post"&gt;
-  &lt;label&gt;الاسم:&lt;/label&gt;
-  &lt;input type="text" name="name"&gt;
-  &lt;button type="submit"&gt;إرسال&lt;/button&gt;
-&lt;/form&gt;
-</pre>
-
-<h3>9. الفيديوهات والصوتيات</h3>
-<pre>
-&lt;video controls width="400"&gt;
-  &lt;source src="video.mp4" type="video/mp4"&gt;
-&lt;/video&gt;
-
-&lt;audio controls&gt;
-  &lt;source src="audio.mp3" type="audio/mp3"&gt;
-&lt;/audio&gt;
-</pre>
-
-<h3>10. أفضل الممارسات</h3>
-<ul>
-<li>تنظيم الصفحة باستخدام div و span</li>
-<li>استخدام التعليقات لتوضيح الأكواد</li>
-<li>حفظ الملفات بامتداد .html</li>
-<li>استخدام أسماء وصفية للعناصر</li>
-<li>تجربة الشيفرات عمليًا في المتصفح</li>
-<li>التحقق من الأخطاء باستخدام أدوات المطور</li>
-<li>الاستمرار في الممارسة اليومية</li>
-<li>تطبيق كل درس عمليًا قبل الانتقال للدرس التالي</li>
-<li>تخصيص الألوان والخطوط لتحسين القراءة</li>
-<li>إضافة ملاحظات خاصة بك لتسهيل المراجعة</li>
-<!-- يمكن تكرار هذه الفقرات والأمثلة حتى الوصول إلى 200 سطر نصي -->
-</ul>
-
-<p>يمكنك الآن تجربة نسخ الأكواد، تعديلها، إضافة عناصر جديدة، وإنشاء صفحة متكاملة من الصفر.</p>
-<p>استمر في تعلم HTML خطوة بخطوة وستتمكن من إنشاء مواقع احترافية.</p>
-<p>تكرار الشرح، الأمثلة، والتطبيق العملي سيجعل تعلمك أسرع وأكثر فاعلية.</p>
+  1:{ title:"HTML – أساسيات بناء المواقع", content:`
+<p>HTML هي حجر الأساس لأي موقع ويب...</p>
+<p>هنا شرح موسع لكل العناصر...</p>
+<!-- ضع محتوى طويل هنا يصل إلى 200 سطر عند التوسع -->
 `},
-  2: { title:"CSS – التصميم والتنسيق", content:"<p>درس CSS سيكون طويل جدًا...</p>"},
-  3: { title:"JavaScript – التفاعل", content:"<p>درس JavaScript سيكون طويل جدًا...</p>"},
-  4: { title:"مشروع تطبيقي متكامل", content:"<p>مشروع كامل سيجمع HTML و CSS و JS...</p>"}
+  2:{ title:"CSS – التصميم والتنسيق", content:`<p>CSS مسؤولة عن تصميم الصفحة...</p>`},
+  3:{ title:"JavaScript – التفاعل", content:`<p>JavaScript تجعل الصفحة تفاعلية...</p>`},
+  4:{ title:"مشروع تطبيقي متكامل", content:`<p>مشروع عملي يجمع HTML وCSS وJS...</p>`}
 };
 
 function hideAll(){
@@ -515,4 +378,24 @@ function hideAll(){
 
 function showHome(){
   hideAll();
-  document.getElementById("home").classList.remove
+  document.getElementById("home").classList.remove("hidden");
+}
+
+function showCourse(){
+  hideAll();
+  document.getElementById("course").classList.remove("hidden");
+}
+
+function openLesson(num){
+  hideAll();
+  document.getElementById("lesson").classList.remove("hidden");
+  document.getElementById("lessonTitle").innerHTML = lessons[num].title;
+  document.getElementById("lessonContent").innerHTML = lessons[num].content;
+}
+
+function scrollToContact(){
+  document.getElementById("contact").scrollIntoView({behavior:"smooth"});
+}
+</script>
+</body>
+</html>
