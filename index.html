@@ -734,10 +734,221 @@ HTML يبني – CSS يزين – JavaScript يحرّك.
 `
 },
   3:{
-    title:"JavaScript – بث الحياة في صفحات الويب",
-    content:`<h2>مقدمة: من التمثال إلى الكائن الحي</h2>
-<p>...</p>`
-  },
+  title:"JavaScript – بث الحياة في صفحات الويب",
+  content:`
+<h2>مقدمة: من التمثال إلى الكائن الحي</h2>
+
+<p>
+في مقالاتنا السابقة، قمنا ببناء الهيكل العظمي باستخدام HTML،
+ثم ألبسناه الملابس والديكور باستخدام CSS.
+مشروعنا الآن يبدو جيداً، لكنه ثابت وهادئ، أشبه بتمثال جميل.
+</p>
+
+<p>
+حان الوقت الآن لإضافة <strong>الجهاز العصبي والعقل</strong> لبث الحياة فيه.
+هذا هو دور <strong>JavaScript (JS)</strong>.
+</p>
+
+<p>
+في هذا الدليل، سنتعلم أساسيات JavaScript، اللغة التي تحول صفحات الويب
+من مستندات ثابتة إلى تطبيقات تفاعلية.
+</p>
+
+<hr>
+
+<h2>ما هي لغة JavaScript؟</h2>
+
+<p>
+على عكس HTML و CSS اللتين تصفان “ماذا” يجب أن يظهر،
+فإن JavaScript هي لغة برمجة حقيقية تخبر المتصفح “كيف” يتصرف.
+</p>
+
+<ul>
+  <li>HTML: هنا يوجد زر</li>
+  <li>CSS: اجعل الزر أزرق</li>
+  <li>JavaScript: عند النقر على الزر افعل شيئًا</li>
+</ul>
+
+<hr>
+
+<h2>التنفيذ من جانب العميل (Client-Side)</h2>
+
+<p>
+JavaScript تعمل داخل متصفح المستخدم مباشرة.
+عند فتح الصفحة، يقوم المتصفح بتنفيذ الكود عبر محرك JavaScript.
+</p>
+
+<ul>
+  <li>التلاعب بالـ DOM</li>
+  <li>التحقق من صحة النماذج</li>
+  <li>الرسوم المتحركة والتفاعلات</li>
+  <li>تطبيقات الصفحة الواحدة (SPA)</li>
+</ul>
+
+<hr>
+
+<h2>JavaScript على الخادم – Node.js</h2>
+
+<p>
+مع ظهور Node.js عام 2009، أصبحت JavaScript تعمل على الخادم.
+هذا جعلها لغة <strong>Full-Stack</strong>.
+</p>
+
+<p>
+يمكنها التعامل مع:
+</p>
+
+<ul>
+  <li>قواعد البيانات</li>
+  <li>واجهات API</li>
+  <li>إدارة الملفات</li>
+</ul>
+
+<hr>
+
+<h2>نبذة تاريخية</h2>
+
+<h3>البداية – 1995</h3>
+<p>
+تم إنشاء JavaScript على يد برندان آيك خلال 10 أيام فقط
+داخل شركة Netscape.
+</p>
+
+<h3>الفوضى والتوحيد</h3>
+<p>
+ظهرت مشكلة اختلاف المتصفحات، فتم توحيد اللغة تحت معيار
+<strong>ECMAScript</strong>.
+</p>
+
+<h3>العصر الحديث</h3>
+<p>
+ES6 و Node.js أحدثا ثورة حقيقية في عالم JavaScript.
+</p>
+
+<hr>
+
+<h2>إضافة JavaScript للمشروع</h2>
+
+<h3>الطريقة الصحيحة</h3>
+
+<pre><code class="html">
+<script src="script.js"></script>
+</code></pre>
+
+<p>
+يجب وضع السكريبت قبل إغلاق وسم <code>&lt;/body&gt;</code>
+لضمان تحميل عناصر الصفحة أولاً.
+</p>
+
+<hr>
+
+<h2>DOM – جسر التفاعل</h2>
+
+<p>
+DOM هو النسخة الحية من صفحة HTML داخل المتصفح.
+JavaScript يتعامل معها مباشرة.
+</p>
+
+<pre><code class="js">
+const button = document.querySelector('button');
+</code></pre>
+
+<hr>
+
+<h2>المتغيرات وأنواع البيانات</h2>
+
+<pre><code class="js">
+const siteName = "موقعي";
+let visitors = 10;
+</code></pre>
+
+<ul>
+  <li>String</li>
+  <li>Number</li>
+  <li>Boolean</li>
+</ul>
+
+<hr>
+
+<h2>الشروط والحلقات</h2>
+
+<pre><code class="js">
+if (visitors > 5) {
+  console.log("مرحبا بك");
+}
+</code></pre>
+
+<pre><code class="js">
+for (let i = 0; i < 3; i++) {
+  console.log(i);
+}
+</code></pre>
+
+<hr>
+
+<h2>الدوال (Functions)</h2>
+
+<pre><code class="js">
+function greet() {
+  console.log("أهلاً بك");
+}
+greet();
+</code></pre>
+
+<hr>
+
+<h2>الأحداث (Events)</h2>
+
+<pre><code class="js">
+button.addEventListener("click", function(){
+  alert("تم النقر");
+});
+</code></pre>
+
+<hr>
+
+<h2>مشروع عملي: الوضع الليلي</h2>
+
+<pre><code class="js">
+const btn = document.querySelector('#theme-toggle-button');
+const body = document.body;
+
+btn.addEventListener('click', () => {
+  body.classList.toggle('dark-mode');
+});
+</code></pre>
+
+<hr>
+
+<h2>أطر العمل والمكتبات</h2>
+
+<ul>
+  <li>React</li>
+  <li>Vue</li>
+  <li>Angular</li>
+</ul>
+
+<p>
+لكن إتقان JavaScript الخام هو الأساس الحقيقي.
+</p>
+
+<hr>
+
+<h2>الخلاصة</h2>
+
+<p>
+لقد بثثت الحياة في مشروعك.
+HTML هو الهيكل،
+CSS هو الجمال،
+JavaScript هو العقل.
+</p>
+
+<p>
+في الدرس القادم سننتقل إلى Git و GitHub
+لإدارة مشاريعك باحتراف.
+</p>
+`
+},
   4:{
     title:"مشروع تطبيقي متكامل",
     content:`<p>مشروع عملي يجمع HTML وCSS وJS...</p>`
