@@ -51,13 +51,15 @@ nav{
 }
 
 nav .brand{
-  font-size: 28px;
+  font-size: 26px; /* تقليل قليلاً من 28px */
   font-weight: 900;
   background: linear-gradient(90deg,#f5c16c,#00cfff);
   -webkit-background-clip:text;
   -webkit-text-fill-color:transparent;
   letter-spacing: 1px;
   text-shadow: 1px 1px 3px rgba(0,0,0,0.6);
+  white-space: nowrap; /* منع تقسيم النص */
+  overflow: hidden; /* لتجنب أي تجاوز */
 }
 
 nav a {
@@ -73,6 +75,16 @@ nav a {
 nav a:hover{
   background:#00cfff;
   color:#000;
+} @media screen and (max-width: 768px) {
+  nav .brand {
+    font-size: 22px; /* تصغير للنص على الشاشات المتوسطة */
+  }
+}
+
+@media screen and (max-width: 480px) {
+  nav .brand {
+    font-size: 20px; /* تصغير أكبر للهواتف */
+  }
 }
 
 /* ====== Container ====== */
