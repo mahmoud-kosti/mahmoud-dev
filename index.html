@@ -65,7 +65,7 @@ a{color:#fff; cursor:pointer}
   </div>
 </nav>
 
-<!-- LOGIN / REGISTER -->
+<!-- AUTH -->
 <div id="auth" class="container">
 
   <h2>تسجيل / دخول</h2>
@@ -83,20 +83,42 @@ a{color:#fff; cursor:pointer}
     <input id="logEmail" placeholder="الإيميل">
     <input id="logPass" type="password" placeholder="كلمة المرور">
     <button class="btn" onclick="login()">دخول</button>
+    <br>
+    <button class="btn" onclick="resetPassword()">نسيت كلمة المرور؟</button>
   </div>
 
 </div>
 
 <!-- DASHBOARD -->
 <div id="dashboard" class="container hidden">
-  <h2>🎓 لوحة التحكم</h2>
 
-  <p>مرحباً بك في الأكاديمية</p>
+  <h2>🎓 لوحة التحكم</h2>
+  <p>مرحباً بك في أكاديمية HOota O Black</p>
 
   <div class="card">
-    <h3>الدروس</h3>
-    <p>HTML - CSS - JavaScript</p>
+    <h3>📘 HTML</h3>
+    <p>تعلم بناء المواقع من الصفر</p>
+    <button class="btn">ابدأ الكورس</button>
   </div>
+
+  <div class="card">
+    <h3>🎨 CSS</h3>
+    <p>تصميم احترافي للمواقع</p>
+    <button class="btn">ابدأ الكورس</button>
+  </div>
+
+  <div class="card">
+    <h3>⚡ JavaScript</h3>
+    <p>إضافة التفاعل والذكاء للمواقع</p>
+    <button class="btn">ابدأ الكورس</button>
+  </div>
+
+  <div class="card">
+    <h3>🚀 مشروع نهائي</h3>
+    <p>بناء موقع كامل ونشره</p>
+    <button class="btn">ابدأ المشروع</button>
+  </div>
+
 </div>
 
 <script type="module">
@@ -107,7 +129,8 @@ import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
   onAuthStateChanged,
-  signOut
+  signOut,
+  sendPasswordResetEmail
 } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
 
 import {
@@ -116,11 +139,13 @@ import {
   doc
 } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
 
+
+// 🔥 Firebase Config (تأكد تعدله من Firebase Console)
 const firebaseConfig = {
   apiKey: "AIzaSyBsvF9J_DneR5H0JbOW4HX_JjVWaajAUgk",
   authDomain: "website-8833c.firebaseapp.com",
   projectId: "website-8833c",
-  storageBucket: "website-8833c.firebaseapp.com",
+  storageBucket: "website-8833c.firebasestorage.app",
   messagingSenderId: "831801957212",
   appId: "1:831801957212:web:707b3c8ac71fb67212bf99"
 };
@@ -130,12 +155,17 @@ const auth = getAuth(app);
 const db = getFirestore(app);
 
 
-// 🟢 تسجيل حساب
+// 🟢 Register
 window.register = async function(){
 
   const name = regName.value;
   const email = regEmail.value;
   const pass = regPass.value;
+
+  if(!name || !email || !pass){
+    alert("يرجى إدخال جميع البيانات");
+    return;
+  }
 
   try{
     const userCred = await createUserWithEmailAndPassword(auth, email, pass);
@@ -145,7 +175,7 @@ window.register = async function(){
       email
     });
 
-    alert("تم إنشاء الحساب ✅");
+    alert("تم إنشاء الحساب بنجاح ✅");
 
   }catch(e){
     alert(e.message);
@@ -153,11 +183,16 @@ window.register = async function(){
 };
 
 
-// 🟢 تسجيل دخول
+// 🟢 Login
 window.login = async function(){
 
   const email = logEmail.value;
   const pass = logPass.value;
+
+  if(!email || !pass){
+    alert("يرجى إدخال البيانات");
+    return;
+  }
 
   try{
     await signInWithEmailAndPassword(auth, email, pass);
@@ -169,14 +204,34 @@ window.login = async function(){
 };
 
 
-// 🟢 تسجيل خروج
+// 🟢 Reset Password
+window.resetPassword = async function(){
+
+  const email = logEmail.value;
+
+  if(!email){
+    alert("اكتب الإيميل أولاً");
+    return;
+  }
+
+  try{
+    await sendPasswordResetEmail(auth, email);
+    alert("تم إرسال رابط إعادة تعيين كلمة المرور 📩");
+
+  }catch(e){
+    alert(e.message);
+  }
+};
+
+
+// 🟢 Logout
 window.logout = async function(){
   await signOut(auth);
 };
 
 
-// 🟢 حالة المستخدم
-onAuthStateChanged(auth, async (user)=>{
+// 🟢 Auth State
+onAuthStateChanged(auth, (user)=>{
 
   if(user){
 
