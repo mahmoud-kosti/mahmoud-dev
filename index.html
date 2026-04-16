@@ -15,7 +15,6 @@ body{
 }
 
 .container{padding:100px 20px; text-align:center}
-
 .hidden{display:none}
 
 input{
@@ -75,7 +74,6 @@ a{color:#fff; cursor:pointer}
     <h3>إنشاء حساب</h3>
     <input id="regName" placeholder="الاسم">
     <input id="regEmail" placeholder="الإيميل">
-    <input id="regPhone" placeholder="رقم الهاتف">
     <input id="regPass" type="password" placeholder="كلمة المرور">
     <button class="btn" onclick="register()">تسجيل</button>
   </div>
@@ -115,17 +113,14 @@ import {
 import {
   getFirestore,
   setDoc,
-  doc,
-  getDoc
+  doc
 } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
 
-
-// 🔥 ضع بيانات Firebase هنا
 const firebaseConfig = {
   apiKey: "AIzaSyBsvF9J_DneR5H0JbOW4HX_JjVWaajAUgk",
   authDomain: "website-8833c.firebaseapp.com",
   projectId: "website-8833c",
-  storageBucket: "website-8833c.firebasestorage.app",
+  storageBucket: "website-8833c.firebaseapp.com",
   messagingSenderId: "831801957212",
   appId: "1:831801957212:web:707b3c8ac71fb67212bf99"
 };
@@ -140,14 +135,14 @@ window.register = async function(){
 
   const name = regName.value;
   const email = regEmail.value;
-  const phone = regPhone.value;
   const pass = regPass.value;
 
   try{
     const userCred = await createUserWithEmailAndPassword(auth, email, pass);
 
     await setDoc(doc(db,"users", userCred.user.uid),{
-      name, email, phone
+      name,
+      email
     });
 
     alert("تم إنشاء الحساب ✅");
