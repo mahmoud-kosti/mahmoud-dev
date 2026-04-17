@@ -5,140 +5,165 @@
 <title>HOota Academy</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700;900&display=swap" rel="stylesheet">
 
 <style>
 body{
   margin:0;
   font-family:'Cairo', sans-serif;
-  background: linear-gradient(180deg,#3b0a6d,#0b0f1a);
+  background: linear-gradient(135deg,#3b0a6d,#0b0f1a);
   color:#fff;
 }
 
-/* logo */
-.logo{
-  text-align:center;
-  font-size:22px;
-  font-weight:800;
-  padding:20px;
-  background:linear-gradient(90deg,#fff,#00cfff);
-  -webkit-background-clip:text;
-  -webkit-text-fill-color:transparent;
+/* ===== AUTH UI ===== */
+.center{
+  height:100vh;
+  display:flex;
+  justify-content:center;
+  align-items:center;
 }
 
-/* auth */
 .auth-box{
-  max-width:350px;
-  margin:100px auto;
+  width:350px;
+  padding:40px;
+  border-radius:25px;
+  backdrop-filter: blur(25px);
   background: rgba(255,255,255,0.05);
-  backdrop-filter: blur(20px);
-  padding:30px;
-  border-radius:20px;
+  box-shadow:0 0 40px rgba(0,0,0,0.6);
   text-align:center;
+  animation:fadeIn 1s ease;
 }
 
 input{
   width:100%;
-  padding:12px;
-  margin:8px 0;
+  padding:14px;
+  margin:10px 0;
   border:none;
-  border-radius:20px;
+  border-radius:30px;
   background:rgba(255,255,255,0.1);
   color:#fff;
 }
 
 .btn{
   width:100%;
-  padding:12px;
+  padding:14px;
   border:none;
-  border-radius:20px;
-  background:#00cfff;
+  border-radius:30px;
+  background:linear-gradient(90deg,#00cfff,#00ffa3);
   color:#000;
   font-weight:bold;
   cursor:pointer;
-  margin-top:10px;
+  transition:0.3s;
 }
 
-.link{cursor:pointer;margin-top:10px}
+.btn:hover{
+  transform:scale(1.05);
+}
 
-/* dashboard */
+.link{
+  margin-top:10px;
+  cursor:pointer;
+  opacity:0.8;
+}
+
+/* اسمك */
+.brand{
+  margin-top:25px;
+  font-size:26px;
+  font-weight:900;
+  background:linear-gradient(90deg,#fff,#00cfff);
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+}
+
+/* ===== DASHBOARD ===== */
 .dashboard{
   display:none;
   padding:20px;
 }
 
-.top-bar{
+.topbar{
   display:flex;
   justify-content:space-between;
   align-items:center;
 }
 
-.logout-btn{
+.logout{
   background:#ff4d4d;
-  color:#fff;
   border:none;
-  padding:10px 15px;
-  border-radius:15px;
+  padding:10px 20px;
+  border-radius:20px;
+  color:#fff;
   cursor:pointer;
 }
 
-/* courses */
+/* grid */
 .grid{
   display:grid;
   grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
-  gap:20px;
+  gap:25px;
   margin-top:30px;
+  perspective:1000px;
 }
 
+/* 3D cards */
 .card{
-  background:#111827;
+  background: rgba(255,255,255,0.05);
+  border-radius:20px;
   padding:20px;
-  border-radius:15px;
-  box-shadow:0 0 15px rgba(0,0,0,0.4);
-  transition:0.3s;
+  backdrop-filter:blur(15px);
+  transform-style:preserve-3d;
+  transition:0.5s;
+  cursor:pointer;
+  box-shadow:0 20px 40px rgba(0,0,0,0.5);
 }
 
 .card:hover{
-  transform:translateY(-5px);
-  border:1px solid #00cfff;
+  transform:rotateY(10deg) rotateX(5deg) scale(1.05);
 }
 
-.card h3{color:#00cfff}
+.card h3{
+  color:#00cfff;
+}
 
 .card button{
   margin-top:10px;
-  background:#00cfff;
-  border:none;
   padding:10px;
+  border:none;
   border-radius:15px;
+  background:#00cfff;
   cursor:pointer;
 }
 
-/* course page */
+/* ===== COURSE ===== */
 .course{
   display:none;
-  padding:20px;
+  padding:30px;
   max-width:900px;
   margin:auto;
 }
 
-.back-btn{
+.back{
+  margin-bottom:20px;
   border:1px solid #00cfff;
   color:#00cfff;
   padding:10px 20px;
   border-radius:20px;
   cursor:pointer;
-  margin-bottom:20px;
+}
+
+/* animations */
+@keyframes fadeIn{
+  from{opacity:0; transform:translateY(20px)}
+  to{opacity:1}
 }
 </style>
 </head>
 
 <body>
 
-<div class="logo">HOota Academy</div>
-
 <!-- AUTH -->
-<div id="auth">
+<div id="auth" class="center">
 <div class="auth-box">
 
 <div id="loginBox">
@@ -146,7 +171,7 @@ input{
 <input id="logEmail" placeholder="Email">
 <input id="logPass" type="password" placeholder="Password">
 <button class="btn" onclick="login()">Login</button>
-<p class="link" onclick="showRegister()">Register</p>
+<p class="link" onclick="showRegister()">إنشاء حساب</p>
 </div>
 
 <div id="registerBox" style="display:none">
@@ -155,8 +180,10 @@ input{
 <input id="regPass" type="password" placeholder="Password">
 <input id="regPass2" type="password" placeholder="Confirm Password">
 <button class="btn" onclick="register()">Create</button>
-<p class="link" onclick="showLogin()">Back</p>
+<p class="link" onclick="showLogin()">رجوع</p>
 </div>
+
+<div class="brand">حووته</div>
 
 </div>
 </div>
@@ -164,29 +191,29 @@ input{
 <!-- DASHBOARD -->
 <div id="dashboard" class="dashboard">
 
-<div class="top-bar">
-<h2>🎓 الكورسات</h2>
-<button class="logout-btn" onclick="logout()">تسجيل خروج</button>
+<div class="topbar">
+<h2>🎓 كورساتك</h2>
+<button class="logout" onclick="logout()">خروج</button>
 </div>
 
 <div class="grid">
 
 <div class="card">
 <h3>HTML</h3>
-<p>تعلم أساسيات بناء المواقع</p>
-<button onclick="openCourse('html')">دخول الكورس</button>
+<p>تعلم بناء المواقع</p>
+<button onclick="openCourse('html')">ابدأ</button>
 </div>
 
 <div class="card">
 <h3>CSS</h3>
-<p>تصميم احترافي للمواقع</p>
-<button onclick="openCourse('css')">دخول الكورس</button>
+<p>تصميم احترافي</p>
+<button onclick="openCourse('css')">ابدأ</button>
 </div>
 
 <div class="card">
 <h3>JavaScript</h3>
-<p>إضافة التفاعل للمواقع</p>
-<button onclick="openCourse('js')">دخول الكورس</button>
+<p>برمجة تفاعلية</p>
+<button onclick="openCourse('js')">ابدأ</button>
 </div>
 
 </div>
@@ -194,18 +221,15 @@ input{
 
 <!-- COURSE -->
 <div id="course" class="course">
-
-<button class="back-btn" onclick="back()">⬅ رجوع</button>
-
+<button class="back" onclick="back()">⬅ رجوع</button>
 <div id="content"></div>
 
 <hr>
-<p>© جميع الحقوق محفوظة - Mahmoud Abdallah</p>
+<p>© Mahmoud Abdallah</p>
 
 <a href="https://wa.me/249900623733" target="_blank">
 <button class="btn">📞 واتساب</button>
 </a>
-
 </div>
 
 <script type="module">
@@ -219,16 +243,15 @@ onAuthStateChanged,
 signOut
 } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
 
-const firebaseConfig = {
-apiKey: "AIzaSyBsvF9J_DneR5H0JbOW4HX_JjVWaajAUgk",
-authDomain: "website-8833c.firebaseapp.com",
-projectId: "website-8833c"
-};
+const app = initializeApp({
+apiKey:"AIzaSyBsvF9J_DneR5H0JbOW4HX_JjVWaajAUgk",
+authDomain:"website-8833c.firebaseapp.com",
+projectId:"website-8833c"
+});
 
-const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 
-// 🔥 تعريف العناصر (الحل الأساسي)
+// elements
 const authDiv = document.getElementById("auth");
 const dashboardDiv = document.getElementById("dashboard");
 const courseDiv = document.getElementById("course");
@@ -252,18 +275,18 @@ window.login=async()=>{
 await signInWithEmailAndPassword(auth,logEmail.value,logPass.value);
 }
 
-// logout (FIX 🔥)
+// logout
 window.logout=async()=>{
 await signOut(auth);
 }
 
-// auth state (FIX 🔥)
+// auth state
 onAuthStateChanged(auth,(user)=>{
 if(user){
 authDiv.style.display="none";
 dashboardDiv.style.display="block";
 }else{
-authDiv.style.display="block";
+authDiv.style.display="flex";
 dashboardDiv.style.display="none";
 courseDiv.style.display="none";
 }
@@ -271,19 +294,19 @@ courseDiv.style.display="none";
 
 // courses
 const courses = {
-html:"<h2>HTML</h2><p>تعلم الأساسيات</p>".repeat(30),
-css:"<h2>CSS</h2><p>تصميم المواقع</p>".repeat(30),
-js:"<h2>JS</h2><p>برمجة المواقع</p>".repeat(30)
+html:"<h2>HTML</h2><p>شرح كامل</p>".repeat(40),
+css:"<h2>CSS</h2><p>تصميم</p>".repeat(40),
+js:"<h2>JS</h2><p>برمجة</p>".repeat(40)
 };
 
-// open course (FIX 🔥)
+// open
 window.openCourse=(name)=>{
 dashboardDiv.style.display="none";
 courseDiv.style.display="block";
 contentDiv.innerHTML=courses[name];
 }
 
-// back (FIX 🔥)
+// back
 window.back=()=>{
 courseDiv.style.display="none";
 dashboardDiv.style.display="block";
