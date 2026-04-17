@@ -11,11 +11,11 @@
 body{
   margin:0;
   font-family:'Cairo', sans-serif;
-  background: linear-gradient(135deg,#3b0a6d,#0b0f1a);
-  color:#fff;
+  background:#1c1c1c;
+  color:#e5e5e5;
 }
 
-/* ===== AUTH UI ===== */
+/* AUTH */
 .center{
   height:100vh;
   display:flex;
@@ -24,14 +24,12 @@ body{
 }
 
 .auth-box{
-  width:350px;
+  width:360px;
   padding:40px;
   border-radius:25px;
-  backdrop-filter: blur(25px);
-  background: rgba(255,255,255,0.05);
-  box-shadow:0 0 40px rgba(0,0,0,0.6);
+  background:rgba(255,255,255,0.03);
+  border:1px solid rgba(255,255,255,0.05);
   text-align:center;
-  animation:fadeIn 1s ease;
 }
 
 input{
@@ -40,8 +38,9 @@ input{
   margin:10px 0;
   border:none;
   border-radius:30px;
-  background:rgba(255,255,255,0.1);
+  background:#2a2a2a;
   color:#fff;
+  font-size:15px;
 }
 
 .btn{
@@ -49,7 +48,7 @@ input{
   padding:14px;
   border:none;
   border-radius:30px;
-  background:linear-gradient(90deg,#00cfff,#00ffa3);
+  background:#b8a99a;
   color:#000;
   font-weight:bold;
   cursor:pointer;
@@ -57,29 +56,27 @@ input{
 }
 
 .btn:hover{
-  transform:scale(1.05);
+  background:#d1c2b3;
 }
 
 .link{
   margin-top:10px;
   cursor:pointer;
-  opacity:0.8;
+  color:#b8a99a;
 }
 
-/* اسمك */
+/* brand */
 .brand{
   margin-top:25px;
-  font-size:26px;
+  font-size:28px;
   font-weight:900;
-  background:linear-gradient(90deg,#fff,#00cfff);
-  -webkit-background-clip:text;
-  -webkit-text-fill-color:transparent;
+  color:#b8a99a;
 }
 
-/* ===== DASHBOARD ===== */
+/* DASHBOARD */
 .dashboard{
   display:none;
-  padding:20px;
+  padding:25px;
 }
 
 .topbar{
@@ -89,53 +86,59 @@ input{
 }
 
 .logout{
-  background:#ff4d4d;
+  background:#444;
+  color:#fff;
   border:none;
   padding:10px 20px;
   border-radius:20px;
-  color:#fff;
   cursor:pointer;
 }
 
-/* grid */
+/* COURSES GRID */
 .grid{
   display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+  grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
   gap:25px;
   margin-top:30px;
-  perspective:1000px;
 }
 
-/* 3D cards */
+/* CARD */
 .card{
-  background: rgba(255,255,255,0.05);
+  background:#2a2a2a;
+  padding:30px;
   border-radius:20px;
-  padding:20px;
-  backdrop-filter:blur(15px);
-  transform-style:preserve-3d;
-  transition:0.5s;
-  cursor:pointer;
-  box-shadow:0 20px 40px rgba(0,0,0,0.5);
+  transition:0.3s;
+  box-shadow:0 10px 25px rgba(0,0,0,0.5);
 }
 
 .card:hover{
-  transform:rotateY(10deg) rotateX(5deg) scale(1.05);
+  transform:translateY(-5px);
+  box-shadow:0 20px 40px rgba(0,0,0,0.8);
 }
 
 .card h3{
-  color:#00cfff;
+  font-size:22px;
+  color:#b8a99a;
+}
+
+.card p{
+  font-size:15px;
+  opacity:0.8;
 }
 
 .card button{
-  margin-top:10px;
-  padding:10px;
+  margin-top:15px;
+  padding:12px;
+  width:100%;
   border:none;
   border-radius:15px;
-  background:#00cfff;
+  background:#b8a99a;
+  color:#000;
+  font-weight:bold;
   cursor:pointer;
 }
 
-/* ===== COURSE ===== */
+/* COURSE PAGE */
 .course{
   display:none;
   padding:30px;
@@ -144,18 +147,18 @@ input{
 }
 
 .back{
-  margin-bottom:20px;
-  border:1px solid #00cfff;
-  color:#00cfff;
+  border:1px solid #b8a99a;
+  color:#b8a99a;
   padding:10px 20px;
   border-radius:20px;
   cursor:pointer;
+  margin-bottom:20px;
 }
 
-/* animations */
-@keyframes fadeIn{
-  from{opacity:0; transform:translateY(20px)}
-  to{opacity:1}
+.footer{
+  margin-top:30px;
+  text-align:center;
+  opacity:0.7;
 }
 </style>
 </head>
@@ -192,28 +195,28 @@ input{
 <div id="dashboard" class="dashboard">
 
 <div class="topbar">
-<h2>🎓 كورساتك</h2>
+<h2>🎓 الكورسات</h2>
 <button class="logout" onclick="logout()">خروج</button>
 </div>
 
 <div class="grid">
 
 <div class="card">
-<h3>HTML</h3>
-<p>تعلم بناء المواقع</p>
-<button onclick="openCourse('html')">ابدأ</button>
+<h3>📘 HTML</h3>
+<p>تعلم أساسيات بناء المواقع</p>
+<button onclick="openCourse('html')">ابدأ الكورس</button>
 </div>
 
 <div class="card">
-<h3>CSS</h3>
-<p>تصميم احترافي</p>
-<button onclick="openCourse('css')">ابدأ</button>
+<h3>🎨 CSS</h3>
+<p>تصميم احترافي للمواقع</p>
+<button onclick="openCourse('css')">ابدأ الكورس</button>
 </div>
 
 <div class="card">
-<h3>JavaScript</h3>
-<p>برمجة تفاعلية</p>
-<button onclick="openCourse('js')">ابدأ</button>
+<h3>⚡ JavaScript</h3>
+<p>برمجة تفاعلية للمواقع</p>
+<button onclick="openCourse('js')">ابدأ الكورس</button>
 </div>
 
 </div>
@@ -224,12 +227,13 @@ input{
 <button class="back" onclick="back()">⬅ رجوع</button>
 <div id="content"></div>
 
-<hr>
-<p>© Mahmoud Abdallah</p>
-
+<div class="footer">
+© Mahmoud Abdallah  
+<br><br>
 <a href="https://wa.me/249900623733" target="_blank">
 <button class="btn">📞 واتساب</button>
 </a>
+</div>
 </div>
 
 <script type="module">
@@ -251,17 +255,14 @@ projectId:"website-8833c"
 
 const auth = getAuth(app);
 
-// elements
 const authDiv = document.getElementById("auth");
 const dashboardDiv = document.getElementById("dashboard");
 const courseDiv = document.getElementById("course");
 const contentDiv = document.getElementById("content");
 
-// switch
 window.showRegister=()=>{loginBox.style.display="none";registerBox.style.display="block";}
 window.showLogin=()=>{registerBox.style.display="none";loginBox.style.display="block";}
 
-// register
 window.register=async()=>{
 if(regPass.value !== regPass2.value){
 alert("كلمة المرور غير متطابقة");
@@ -270,17 +271,12 @@ return;
 await createUserWithEmailAndPassword(auth,regEmail.value,regPass.value);
 }
 
-// login
 window.login=async()=>{
 await signInWithEmailAndPassword(auth,logEmail.value,logPass.value);
 }
 
-// logout
-window.logout=async()=>{
-await signOut(auth);
-}
+window.logout=async()=>{await signOut(auth);}
 
-// auth state
 onAuthStateChanged(auth,(user)=>{
 if(user){
 authDiv.style.display="none";
@@ -292,21 +288,18 @@ courseDiv.style.display="none";
 }
 });
 
-// courses
 const courses = {
-html:"<h2>HTML</h2><p>شرح كامل</p>".repeat(40),
-css:"<h2>CSS</h2><p>تصميم</p>".repeat(40),
-js:"<h2>JS</h2><p>برمجة</p>".repeat(40)
+html:"<h2>HTML</h2><p>تعلم الأساسيات</p>".repeat(40),
+css:"<h2>CSS</h2><p>تصميم المواقع</p>".repeat(40),
+js:"<h2>JavaScript</h2><p>برمجة المواقع</p>".repeat(40)
 };
 
-// open
 window.openCourse=(name)=>{
 dashboardDiv.style.display="none";
 courseDiv.style.display="block";
 contentDiv.innerHTML=courses[name];
 }
 
-// back
 window.back=()=>{
 courseDiv.style.display="none";
 dashboardDiv.style.display="block";
