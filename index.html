@@ -8,140 +8,114 @@
 <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700;900&display=swap" rel="stylesheet">
 
 <style>
-:root{
-  --bg:#020617;
-  --card:#0f172a;
-  --text:#fff;
-  --main:#00cfff;
-}
-
-body.light{
-  --bg:#f1f5f9;
-  --card:#ffffff;
-  --text:#000;
-  --main:#2563eb;
-}
-
 body{
-  margin:0;
-  font-family:'Cairo', sans-serif;
-  background:var(--bg);
-  color:var(--text);
-  transition:0.3s;
+margin:0;
+font-family:'Cairo', sans-serif;
+background:#020617;
+color:#fff;
 }
 
 /* NAV */
 nav{
-  display:flex;
-  justify-content:space-between;
-  padding:12px 18px;
-  background:var(--bg);
-  border-bottom:1px solid #222;
+display:flex;
+justify-content:space-between;
+padding:12px 18px;
+background:#0a0f1c;
 }
 
 .logo{
-  color:var(--main);
-  font-weight:900;
+color:#00cfff;
+font-weight:900;
 }
+
+/* HIDE SYSTEM */
+.hidden{display:none !important;}
 
 /* AUTH */
 .center{
-  height:100vh;
-  display:flex;
-  justify-content:center;
-  align-items:center;
+height:100vh;
+display:flex;
+justify-content:center;
+align-items:center;
 }
 
 .box{
-  width:340px;
-  padding:30px;
-  border-radius:15px;
-  background:var(--card);
-  box-shadow:0 10px 30px rgba(0,0,0,0.4);
-  text-align:center;
-  animation:fade .3s;
+width:340px;
+padding:30px;
+border-radius:15px;
+background:#0f172a;
+text-align:center;
+box-shadow:0 10px 30px rgba(0,0,0,0.4);
 }
 
 input{
-  width:100%;
-  padding:10px;
-  margin:8px 0;
-  border-radius:10px;
-  border:none;
-  background:#1e293b;
-  color:#fff;
-  outline:none;
+width:100%;
+padding:10px;
+margin:8px 0;
+border-radius:10px;
+border:none;
+background:#1e293b;
+color:#fff;
+outline:none;
 }
 
-body.light input{
-  background:#e2e8f0;
-  color:#000;
+button{
+width:100%;
+padding:10px;
+border:none;
+border-radius:10px;
+cursor:pointer;
+font-weight:bold;
 }
 
 .main-btn{
-  width:100%;
-  padding:10px;
-  background:var(--main);
-  border:none;
-  border-radius:10px;
-  font-weight:bold;
-  cursor:pointer;
+background:#00cfff;
+color:#000;
 }
 
 .link{
-  color:var(--main);
-  cursor:pointer;
-  margin-top:10px;
+color:#00cfff;
+cursor:pointer;
+margin-top:10px;
 }
 
 /* DASHBOARD */
 .dashboard{
-  display:none;
-  padding:20px;
+display:none;
+padding:20px;
 }
 
 /* TOAST */
 .toast{
-  position:fixed;
-  top:20px;
-  right:20px;
-  background:#111827;
-  padding:10px 14px;
-  border-radius:10px;
-  opacity:0;
-  transform:translateY(-10px);
-  transition:0.3s;
+position:fixed;
+top:20px;
+right:20px;
+background:#111827;
+padding:10px 14px;
+border-radius:10px;
+opacity:0;
+transition:.3s;
 }
 
 .toast.show{
-  opacity:1;
-  transform:translateY(0);
+opacity:1;
 }
 
-/* ANIMATION */
-@keyframes fade{
-  from{opacity:0;transform:translateY(10px)}
-  to{opacity:1;transform:translateY(0)}
+/* DARK MODE */
+.light{
+background:#f1f5f9;
+color:#000;
 }
 
-/* BUTTONS */
-.top-btns{
-  display:flex;
-  gap:10px;
-  align-items:center;
+.light .box{
+background:#fff;
+color:#000;
 }
 
-.small-btn{
-  padding:6px 10px;
-  border:none;
-  border-radius:8px;
-  cursor:pointer;
-  font-size:12px;
+.light input{
+background:#e2e8f0;
+color:#000;
 }
-
-.logout{background:#ef4444;color:#fff}
-.theme{background:var(--main);color:#000}
-
 </style>
 </head>
 
@@ -151,10 +125,7 @@ body.light input{
 
 <nav>
 <div class="logo">HOota Academy</div>
-
-<div class="top-btns">
-<button class="small-btn theme" onclick="toggleTheme()">🌙</button>
-</div>
+<button onclick="toggleTheme()">🌙</button>
 </nav>
 
 <!-- AUTH -->
@@ -169,7 +140,7 @@ body.light input{
 <p class="link" onclick="toggleForm()">إنشاء حساب</p>
 </div>
 
-<div id="registerBox" style="display:none">
+<div id="registerBox" class="hidden">
 <h3>إنشاء حساب</h3>
 <input id="regEmail" placeholder="Email">
 <input id="regPass" type="password" placeholder="Password">
@@ -182,9 +153,9 @@ body.light input{
 </div>
 
 <!-- DASHBOARD -->
-<div id="dashboard" class="dashboard">
+<div id="dashboard">
 <h2>🎓 الكورسات</h2>
-<button class="small-btn logout" onclick="logout()">خروج</button>
+<button onclick="logout()">خروج</button>
 </div>
 
 <script type="module">
@@ -198,77 +169,68 @@ onAuthStateChanged,
 signOut
 } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
 
-const app = initializeApp({
-apiKey:"AIzaSyBsvF9J_DneR5H0JbOW4HX_JjVWaajAUgk",
-authDomain:"website-8833c.firebaseapp.com",
-projectId:"website-8833c"
-});
+/* 🔥 ضع بيانات Firebase الحقيقية هنا */
+const firebaseConfig = {
+apiKey: "AIzaSyBsvF9J_DneR5H0JbOW4HX_JjVWaajAUgk",
+authDomain: "website-8833c.firebaseapp.com",
+projectId: "website-8833c"
+};
 
+const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
+
+const authDiv = document.getElementById("auth");
+const dashboard = document.getElementById("dashboard");
 
 /* TOAST */
 function toast(msg){
 const t=document.getElementById("toast");
 t.innerText=msg;
 t.classList.add("show");
-setTimeout(()=>t.classList.remove("show"),2500);
+setTimeout(()=>t.classList.remove("show"),2000);
 }
 
 /* LOGIN */
 window.login=async()=>{
 try{
-if(!logEmail.value || !logPass.value){
-toast("املأ كل الحقول");
-return;
-}
-
 await signInWithEmailAndPassword(auth,logEmail.value,logPass.value);
-toast("تم تسجيل الدخول بنجاح");
-
+toast("تم تسجيل الدخول");
 }catch(e){
-toast("خطأ: تأكد من البيانات أو كلمة المرور يجب أن تكون 6 أحرف+");
+toast("خطأ في البيانات");
 }
 }
 
 /* REGISTER */
 window.register=async()=>{
-try{
-if(regPass.value !== regPass2.value){
+if(regPass.value!==regPass2.value){
 toast("كلمات المرور غير متطابقة");
 return;
 }
 
-if(regPass.value.length < 6){
-toast("كلمة المرور يجب أن تكون 6 أحرف أو أكثر");
-return;
-}
-
+try{
 await createUserWithEmailAndPassword(auth,regEmail.value,regPass.value);
-toast("تم إنشاء الحساب بنجاح");
-
+toast("تم إنشاء الحساب");
 }catch(e){
-toast("فشل إنشاء الحساب (الإيميل قد يكون مستخدم)");
+toast("فشل إنشاء الحساب");
 }
 }
 
-/* AUTH STATE */
+/* FIX LOGIN FLOW (المهم جداً) */
 onAuthStateChanged(auth,(user)=>{
 if(user){
-authDiv.style.display="none";
+authDiv.classList.add("hidden");
 dashboard.style.display="block";
+toast("مرحباً " + user.email);
 }else{
-authDiv.style.display="flex";
+authDiv.classList.remove("hidden");
 dashboard.style.display="none";
 }
 });
 
 /* FORM TOGGLE */
 window.toggleForm=()=>{
-loginBox.style.display=
-loginBox.style.display==="none"?"block":"none";
-
-registerBox.style.display=
-registerBox.style.display==="none"?"block":"none";
+loginBox.classList.toggle("hidden");
+registerBox.classList.toggle("hidden");
 }
 
 /* LOGOUT */
