@@ -29,7 +29,7 @@ body::before{
   opacity:0.4;
 }
 
-/* LOGO */
+/* logo */
 .logo{
   position:absolute;
   top:20px;
@@ -42,7 +42,7 @@ body::before{
   -webkit-text-fill-color:transparent;
 }
 
-/* AUTH */
+/* auth */
 .auth-box{
   backdrop-filter: blur(20px);
   background: rgba(255,255,255,0.05);
@@ -53,7 +53,6 @@ body::before{
   text-align:center;
 }
 
-/* inputs */
 input{
   width:100%;
   padding:14px;
@@ -64,7 +63,6 @@ input{
   color:#fff;
 }
 
-/* button */
 .btn{
   width:100%;
   padding:14px;
@@ -74,25 +72,21 @@ input{
   color:#000;
   font-weight:bold;
   cursor:pointer;
+  margin-top:10px;
 }
 
-.link{
-  margin-top:15px;
-  cursor:pointer;
-}
+.link{margin-top:10px;cursor:pointer}
 
-/* footer */
 .footer{
   margin-top:25px;
   font-weight:800;
-  font-size:18px;
-  line-height:1.5;
 }
 
 /* dashboard */
 .dashboard{
   display:none;
   text-align:center;
+  width:100%;
 }
 
 .grid{
@@ -115,6 +109,7 @@ input{
   padding:40px;
   max-width:900px;
   margin:auto;
+  overflow:auto;
 }
 
 .back-btn{
@@ -123,6 +118,12 @@ input{
   padding:10px 20px;
   border-radius:20px;
   cursor:pointer;
+  margin-bottom:15px;
+}
+
+.whatsapp{
+  background:#25D366;
+  color:#fff;
 }
 
 /* toast */
@@ -176,17 +177,28 @@ input{
 <div id="dashboard" class="dashboard">
 <h2>🎓 الكورسات</h2>
 
+<button class="btn" onclick="logout()">🚪 تسجيل خروج</button>
+
 <div class="grid">
-<div class="card" onclick="openCourse()">HTML</div>
-<div class="card" onclick="openCourse()">CSS</div>
-<div class="card" onclick="openCourse()">JS</div>
+<div class="card" onclick="openCourse('html')">HTML</div>
+<div class="card" onclick="openCourse('css')">CSS</div>
+<div class="card" onclick="openCourse('js')">JavaScript</div>
 </div>
 </div>
 
 <!-- COURSE -->
 <div id="course" class="course">
-<button class="back-btn" onclick="back()">رجوع</button>
+<button class="back-btn" onclick="back()">⬅ رجوع</button>
 <div id="content"></div>
+
+<hr>
+
+<p>© جميع حقوق النشر محفوظة لدى Mahmoud Abdallah</p>
+
+<a href="https://wa.me/249900623733" target="_blank">
+<button class="btn whatsapp">📞 تواصل عبر واتساب</button>
+</a>
+
 </div>
 
 <div id="toast" class="toast"></div>
@@ -194,7 +206,13 @@ input{
 <script type="module">
 
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
-import {getAuth,createUserWithEmailAndPassword,signInWithEmailAndPassword,onAuthStateChanged} from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
+import {
+getAuth,
+createUserWithEmailAndPassword,
+signInWithEmailAndPassword,
+onAuthStateChanged,
+signOut
+} from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
 
 const firebaseConfig = {
 apiKey: "AIzaSyBsvF9J_DneR5H0JbOW4HX_JjVWaajAUgk",
@@ -237,30 +255,42 @@ toast("تم تسجيل الدخول");
 }catch(e){toast(e.message)}
 }
 
-// FIX 🔥
-onAuthStateChanged(auth,(user)=>{
-const authDiv=document.getElementById("auth");
-const dashboard=document.getElementById("dashboard");
+// logout
+window.logout=async()=>{
+await signOut(auth);
+toast("تم تسجيل الخروج");
+}
 
+// auth state
+onAuthStateChanged(auth,(user)=>{
 if(user){
-authDiv.style.display="none";
+auth.style.display="none";
 dashboard.style.display="block";
 }else{
-authDiv.style.display="block";
+auth.style.display="block";
 dashboard.style.display="none";
+course.style.display="none";
 }
 });
 
-// course
-window.openCourse=()=>{
-document.getElementById("dashboard").style.display="none";
-document.getElementById("course").style.display="block";
-content.innerHTML="<h2>كورس</h2>"+"<p>تعلم</p>".repeat(200);
+// courses content
+const courses = {
+html: "<h2>HTML</h2><h3>مقدمة</h3><p>HTML هي أساس المواقع</p><h3>العناصر</h3><p>تعلم الوسوم</p>".repeat(20),
+css: "<h2>CSS</h2><h3>مقدمة</h3><p>CSS للتصميم</p><h3>الألوان</h3><p>تنسيق المواقع</p>".repeat(20),
+js: "<h2>JavaScript</h2><h3>مقدمة</h3><p>لغة برمجة</p><h3>المتغيرات</h3><p>تعلم الأساسيات</p>".repeat(20)
+};
+
+// open course
+window.openCourse=(name)=>{
+dashboard.style.display="none";
+course.style.display="block";
+content.innerHTML=courses[name];
 }
 
+// back
 window.back=()=>{
-document.getElementById("course").style.display="none";
-document.getElementById("dashboard").style.display="block";
+course.style.display="none";
+dashboard.style.display="block";
 }
 
 </script>
