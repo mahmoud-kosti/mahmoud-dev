@@ -8,134 +8,140 @@
 <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700;900&display=swap" rel="stylesheet">
 
 <style>
+:root{
+  --bg:#020617;
+  --card:#0f172a;
+  --text:#fff;
+  --main:#00cfff;
+}
+
+body.light{
+  --bg:#f1f5f9;
+  --card:#ffffff;
+  --text:#000;
+  --main:#2563eb;
+}
+
 body{
-margin:0;
-font-family:'Cairo', sans-serif;
-background:#020617;
-color:#fff;
+  margin:0;
+  font-family:'Cairo', sans-serif;
+  background:var(--bg);
+  color:var(--text);
+  transition:0.3s;
 }
 
 /* NAV */
 nav{
-display:flex;
-justify-content:space-between;
-padding:12px 18px;
-background:#0a0f1c;
-border-bottom:1px solid #111;
+  display:flex;
+  justify-content:space-between;
+  padding:12px 18px;
+  background:var(--bg);
+  border-bottom:1px solid #222;
 }
 
 .logo{
-color:#00cfff;
-font-weight:900;
+  color:var(--main);
+  font-weight:900;
 }
 
 /* AUTH */
 .center{
-height:100vh;
-display:flex;
-justify-content:center;
-align-items:center;
+  height:100vh;
+  display:flex;
+  justify-content:center;
+  align-items:center;
 }
 
 .box{
-width:340px;
-padding:30px;
-border-radius:18px;
-background:#0f172a;
-box-shadow:0 10px 30px rgba(0,0,0,0.5);
-text-align:center;
-animation:fade .4s;
-}
-
-/* INPUT STYLE 3D */
-.input-group{
-position:relative;
-margin:10px 0;
+  width:340px;
+  padding:30px;
+  border-radius:15px;
+  background:var(--card);
+  box-shadow:0 10px 30px rgba(0,0,0,0.4);
+  text-align:center;
+  animation:fade .3s;
 }
 
 input{
-width:100%;
-padding:12px 12px 12px 40px;
-border-radius:12px;
-border:none;
-background:#111c33;
-color:#fff;
-outline:none;
-font-size:14px;
-box-shadow:inset 0 0 0 1px #1f2a44;
+  width:100%;
+  padding:10px;
+  margin:8px 0;
+  border-radius:10px;
+  border:none;
+  background:#1e293b;
+  color:#fff;
+  outline:none;
 }
 
-input:focus{
-box-shadow:0 0 0 2px #00cfff;
-}
-
-/* icons */
-.icon{
-position:absolute;
-left:12px;
-top:50%;
-transform:translateY(-50%);
-opacity:0.7;
-}
-
-/* BUTTON */
-button{
-width:100%;
-padding:12px;
-border:none;
-border-radius:12px;
-cursor:pointer;
-transition:.3s;
-font-weight:bold;
-}
-
-button:hover{
-transform:scale(1.03);
+body.light input{
+  background:#e2e8f0;
+  color:#000;
 }
 
 .main-btn{
-background:#00cfff;
-color:#000;
+  width:100%;
+  padding:10px;
+  background:var(--main);
+  border:none;
+  border-radius:10px;
+  font-weight:bold;
+  cursor:pointer;
 }
 
-/* LINK */
 .link{
-color:#00cfff;
-cursor:pointer;
-margin-top:10px;
+  color:var(--main);
+  cursor:pointer;
+  margin-top:10px;
 }
 
 /* DASHBOARD */
 .dashboard{
-display:none;
-padding:20px;
+  display:none;
+  padding:20px;
 }
 
 /* TOAST */
 .toast{
-position:fixed;
-top:20px;
-right:20px;
-background:#111827;
-padding:12px 16px;
-border-radius:10px;
-border:1px solid #1f2937;
-opacity:0;
-transform:translateY(-10px);
-transition:.4s;
-z-index:999;
+  position:fixed;
+  top:20px;
+  right:20px;
+  background:#111827;
+  padding:10px 14px;
+  border-radius:10px;
+  opacity:0;
+  transform:translateY(-10px);
+  transition:0.3s;
 }
 
 .toast.show{
-opacity:1;
-transform:translateY(0);
+  opacity:1;
+  transform:translateY(0);
 }
 
 /* ANIMATION */
 @keyframes fade{
-from{opacity:0; transform:translateY(10px);}
-to{opacity:1; transform:translateY(0);}
+  from{opacity:0;transform:translateY(10px)}
+  to{opacity:1;transform:translateY(0)}
 }
+
+/* BUTTONS */
+.top-btns{
+  display:flex;
+  gap:10px;
+  align-items:center;
+}
+
+.small-btn{
+  padding:6px 10px;
+  border:none;
+  border-radius:8px;
+  cursor:pointer;
+  font-size:12px;
+}
+
+.logout{background:#ef4444;color:#fff}
+.theme{background:var(--main);color:#000}
+
 </style>
 </head>
 
@@ -145,6 +151,10 @@ to{opacity:1; transform:translateY(0);}
 
 <nav>
 <div class="logo">HOota Academy</div>
+
+<div class="top-btns">
+<button class="small-btn theme" onclick="toggleTheme()">🌙</button>
+</div>
 </nav>
 
 <!-- AUTH -->
@@ -153,40 +163,18 @@ to{opacity:1; transform:translateY(0);}
 
 <div id="loginBox">
 <h3>تسجيل الدخول</h3>
-
-<div class="input-group">
-<span class="icon">📧</span>
 <input id="logEmail" placeholder="Email">
-</div>
-
-<div class="input-group">
-<span class="icon">🔑</span>
 <input id="logPass" type="password" placeholder="Password">
-</div>
-
 <button class="main-btn" onclick="login()">دخول</button>
 <p class="link" onclick="toggleForm()">إنشاء حساب</p>
 </div>
 
 <div id="registerBox" style="display:none">
 <h3>إنشاء حساب</h3>
-
-<div class="input-group">
-<span class="icon">📧</span>
 <input id="regEmail" placeholder="Email">
-</div>
-
-<div class="input-group">
-<span class="icon">🔑</span>
 <input id="regPass" type="password" placeholder="Password">
-</div>
-
-<div class="input-group">
-<span class="icon">🔐</span>
 <input id="regPass2" type="password" placeholder="Confirm Password">
-</div>
-
-<button class="main-btn" onclick="register()">إنشاء الحساب</button>
+<button class="main-btn" onclick="register()">إنشاء</button>
 <p class="link" onclick="toggleForm()">رجوع</p>
 </div>
 
@@ -195,8 +183,8 @@ to{opacity:1; transform:translateY(0);}
 
 <!-- DASHBOARD -->
 <div id="dashboard" class="dashboard">
-<h2>🎓 مرحباً بك</h2>
-<button onclick="logout()">خروج</button>
+<h2>🎓 الكورسات</h2>
+<button class="small-btn logout" onclick="logout()">خروج</button>
 </div>
 
 <script type="module">
@@ -211,18 +199,17 @@ signOut
 } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
 
 const app = initializeApp({
-apiKey:"YOUR_KEY",
-authDomain:"YOUR_DOMAIN",
-projectId:"YOUR_ID"
+apiKey:"YOUR_API_KEY",
+authDomain:"YOUR_AUTH_DOMAIN",
+projectId:"YOUR_PROJECT_ID"
 });
 
 const auth = getAuth(app);
 
 /* TOAST */
-function showToast(msg,color="#00cfff"){
+function toast(msg){
 const t=document.getElementById("toast");
 t.innerText=msg;
-t.style.borderColor=color;
 t.classList.add("show");
 setTimeout(()=>t.classList.remove("show"),2500);
 }
@@ -230,24 +217,37 @@ setTimeout(()=>t.classList.remove("show"),2500);
 /* LOGIN */
 window.login=async()=>{
 try{
+if(!logEmail.value || !logPass.value){
+toast("املأ كل الحقول");
+return;
+}
+
 await signInWithEmailAndPassword(auth,logEmail.value,logPass.value);
-showToast("تم تسجيل الدخول بنجاح");
+toast("تم تسجيل الدخول بنجاح");
+
 }catch(e){
-showToast("خطأ في البيانات","red");
+toast("خطأ: تأكد من البيانات أو كلمة المرور يجب أن تكون 6 أحرف+");
 }
 }
 
 /* REGISTER */
 window.register=async()=>{
-if(regPass.value!==regPass2.value){
-showToast("كلمات المرور غير متطابقة","red");
+try{
+if(regPass.value !== regPass2.value){
+toast("كلمات المرور غير متطابقة");
 return;
 }
-try{
+
+if(regPass.value.length < 6){
+toast("كلمة المرور يجب أن تكون 6 أحرف أو أكثر");
+return;
+}
+
 await createUserWithEmailAndPassword(auth,regEmail.value,regPass.value);
-showToast("تم إنشاء الحساب بنجاح");
+toast("تم إنشاء الحساب بنجاح");
+
 }catch(e){
-showToast("فشل إنشاء الحساب","red");
+toast("فشل إنشاء الحساب (الإيميل قد يكون مستخدم)");
 }
 }
 
@@ -262,7 +262,7 @@ dashboard.style.display="none";
 }
 });
 
-/* TOGGLE FORM */
+/* FORM TOGGLE */
 window.toggleForm=()=>{
 loginBox.style.display=
 loginBox.style.display==="none"?"block":"none";
@@ -273,6 +273,11 @@ registerBox.style.display==="none"?"block":"none";
 
 /* LOGOUT */
 window.logout=()=>signOut(auth);
+
+/* DARK MODE */
+window.toggleTheme=()=>{
+document.body.classList.toggle("light");
+}
 
 </script>
 
