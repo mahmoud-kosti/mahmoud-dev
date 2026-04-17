@@ -4,18 +4,70 @@
 <meta charset="UTF-8">
 <title>HOota O Black Academy</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&display=swap" rel="stylesheet">
 
 <style>
 body{
   margin:0;
   font-family:'Cairo', sans-serif;
-  background: linear-gradient(180deg,#05070d,#0b0f1a);
-  color:#eaeaea;
+  background:#0b0f1a;
+  color:#fff;
 }
 
-.container{padding:100px 20px; text-align:center}
-.hidden{display:none}
+nav{
+  display:flex;
+  justify-content:space-between;
+  padding:15px 25px;
+  background:#020617;
+  border-bottom:1px solid #111;
+}
+
+.logo{
+  font-weight:800;
+  color:#00cfff;
+}
+
+.container{
+  padding:100px 20px;
+  text-align:center;
+}
+
+.grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+  gap:20px;
+  margin-top:30px;
+}
+
+.card{
+  background:#111827;
+  padding:20px;
+  border-radius:15px;
+  transition:0.3s;
+  cursor:pointer;
+  border:1px solid transparent;
+}
+
+.card:hover{
+  transform:translateY(-5px);
+  border:1px solid #00cfff;
+}
+
+.card h3{
+  color:#00cfff;
+}
+
+.btn{
+  background:#00cfff;
+  color:#000;
+  padding:10px 20px;
+  border:none;
+  border-radius:10px;
+  cursor:pointer;
+  font-weight:bold;
+  margin-top:10px;
+}
 
 input{
   width:90%;
@@ -25,40 +77,21 @@ input{
   border:none;
 }
 
-.btn{
-  background:#00cfff;
-  color:#000;
-  padding:12px 25px;
-  border:none;
-  border-radius:20px;
-  font-weight:bold;
-  cursor:pointer;
-  margin:5px;
+.course-page{
+  max-width:900px;
+  margin:auto;
+  text-align:right;
+  line-height:1.8;
 }
 
-.card{
-  background:#0e1322;
-  padding:20px;
-  margin:10px auto;
-  width:300px;
-  border-radius:15px;
-}
-
-nav{
-  display:flex;
-  justify-content:space-between;
-  padding:15px;
-  background:#000;
-}
-
-a{color:#fff; cursor:pointer}
+.hidden{display:none}
 </style>
 </head>
 
 <body>
 
 <nav>
-  <div>HOota Academy</div>
+  <div class="logo">HOota Academy</div>
   <div id="navUser" class="hidden">
     <span id="userEmail"></span>
     <button class="btn" onclick="logout()">خروج</button>
@@ -91,34 +124,32 @@ a{color:#fff; cursor:pointer}
 
 <!-- DASHBOARD -->
 <div id="dashboard" class="container hidden">
+<h2>🎓 الكورسات المتاحة</h2>
 
-  <h2>🎓 لوحة التحكم</h2>
-  <p>مرحباً بك في أكاديمية HOota O Black</p>
+<div class="grid">
 
-  <div class="card">
-    <h3>📘 HTML</h3>
-    <p>تعلم بناء المواقع من الصفر</p>
-    <button class="btn">ابدأ الكورس</button>
+  <div class="card" onclick="openCourse('html')">
+    <h3>HTML</h3>
+    <p>تعلم أساسيات بناء المواقع</p>
   </div>
 
-  <div class="card">
-    <h3>🎨 CSS</h3>
-    <p>تصميم احترافي للمواقع</p>
-    <button class="btn">ابدأ الكورس</button>
+  <div class="card" onclick="openCourse('css')">
+    <h3>CSS</h3>
+    <p>تصميم مواقع احترافية</p>
   </div>
 
-  <div class="card">
-    <h3>⚡ JavaScript</h3>
-    <p>إضافة التفاعل والذكاء للمواقع</p>
-    <button class="btn">ابدأ الكورس</button>
+  <div class="card" onclick="openCourse('js')">
+    <h3>JavaScript</h3>
+    <p>إضافة التفاعل للموقع</p>
   </div>
 
-  <div class="card">
-    <h3>🚀 مشروع نهائي</h3>
-    <p>بناء موقع كامل ونشره</p>
-    <button class="btn">ابدأ المشروع</button>
-  </div>
+</div>
+</div>
 
+<!-- COURSE PAGE -->
+<div id="coursePage" class="container hidden">
+  <div class="course-page" id="courseContent"></div>
+  <button class="btn" onclick="back()">رجوع</button>
 </div>
 
 <script type="module">
@@ -139,8 +170,6 @@ import {
   doc
 } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
 
-
-// 🔥 Firebase Config (تأكد تعدله من Firebase Console)
 const firebaseConfig = {
   apiKey: "AIzaSyBsvF9J_DneR5H0JbOW4HX_JjVWaajAUgk",
   authDomain: "website-8833c.firebaseapp.com",
@@ -154,102 +183,72 @@ const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const db = getFirestore(app);
 
-
-// 🟢 Register
+// Register
 window.register = async function(){
-
-  const name = regName.value;
-  const email = regEmail.value;
-  const pass = regPass.value;
-
-  if(!name || !email || !pass){
-    alert("يرجى إدخال جميع البيانات");
-    return;
-  }
-
   try{
-    const userCred = await createUserWithEmailAndPassword(auth, email, pass);
-
-    await setDoc(doc(db,"users", userCred.user.uid),{
-      name,
-      email
+    const user = await createUserWithEmailAndPassword(auth, regEmail.value, regPass.value);
+    await setDoc(doc(db,"users", user.user.uid),{
+      name: regName.value,
+      email: regEmail.value
     });
-
-    alert("تم إنشاء الحساب بنجاح ✅");
-
-  }catch(e){
-    alert(e.message);
-  }
+    alert("تم إنشاء الحساب");
+  }catch(e){ alert(e.message); }
 };
 
-
-// 🟢 Login
+// Login
 window.login = async function(){
-
-  const email = logEmail.value;
-  const pass = logPass.value;
-
-  if(!email || !pass){
-    alert("يرجى إدخال البيانات");
-    return;
-  }
-
   try{
-    await signInWithEmailAndPassword(auth, email, pass);
-    alert("تم تسجيل الدخول ✅");
-
-  }catch(e){
-    alert(e.message);
-  }
+    await signInWithEmailAndPassword(auth, logEmail.value, logPass.value);
+  }catch(e){ alert(e.message); }
 };
 
-
-// 🟢 Reset Password
+// Reset
 window.resetPassword = async function(){
-
-  const email = logEmail.value;
-
-  if(!email){
-    alert("اكتب الإيميل أولاً");
-    return;
-  }
-
   try{
-    await sendPasswordResetEmail(auth, email);
-    alert("تم إرسال رابط إعادة تعيين كلمة المرور 📩");
-
-  }catch(e){
-    alert(e.message);
-  }
+    await sendPasswordResetEmail(auth, logEmail.value);
+    alert("تم إرسال الرابط");
+  }catch(e){ alert(e.message); }
 };
 
-
-// 🟢 Logout
+// Logout
 window.logout = async function(){
   await signOut(auth);
 };
 
-
-// 🟢 Auth State
-onAuthStateChanged(auth, (user)=>{
-
+// Auth State
+onAuthStateChanged(auth,(user)=>{
   if(user){
-
-    document.getElementById("auth").classList.add("hidden");
-    document.getElementById("dashboard").classList.remove("hidden");
-    document.getElementById("navUser").classList.remove("hidden");
-
-    document.getElementById("userEmail").innerText = user.email;
-
+    authDiv.style.display="none";
+    dashboard.style.display="block";
+    navUser.classList.remove("hidden");
+    userEmail.innerText=user.email;
   }else{
-
-    document.getElementById("auth").classList.remove("hidden");
-    document.getElementById("dashboard").classList.add("hidden");
-    document.getElementById("navUser").classList.add("hidden");
-
+    authDiv.style.display="block";
+    dashboard.style.display="none";
+    navUser.classList.add("hidden");
   }
-
 });
+
+// Courses Content
+const htmlCourse = "<h2>HTML Course</h2>" + "<p>تعلم HTML خطوة بخطوة</p>".repeat(200);
+const cssCourse = "<h2>CSS Course</h2>" + "<p>تعلم CSS و التصميم</p>".repeat(200);
+const jsCourse = "<h2>JS Course</h2>" + "<p>تعلم JavaScript</p>".repeat(200);
+
+// Open Course
+window.openCourse = function(type){
+  dashboard.style.display="none";
+  coursePage.style.display="block";
+
+  if(type==="html") courseContent.innerHTML=htmlCourse;
+  if(type==="css") courseContent.innerHTML=cssCourse;
+  if(type==="js") courseContent.innerHTML=jsCourse;
+};
+
+// Back
+window.back = function(){
+  coursePage.style.display="none";
+  dashboard.style.display="block";
+};
 
 </script>
 
