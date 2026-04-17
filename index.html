@@ -25,10 +25,7 @@ background:#020617;
 border-bottom:1px solid #111;
 }
 
-.logo{
-color:#00cfff;
-font-weight:900;
-}
+.logo{color:#00cfff;font-weight:900}
 
 .logout{
 background:#ef4444;
@@ -37,7 +34,7 @@ padding:6px 12px;
 border-radius:8px;
 color:#fff;
 cursor:pointer;
-display:none; /* 🔥 مهم جداً */
+display:none;
 }
 
 /* AUTH */
@@ -87,42 +84,9 @@ display:none;
 padding:20px;
 }
 
-.grid{
-display:grid;
-grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
-gap:15px;
-margin-top:20px;
-}
-
-.card{
-background:#0f172a;
-border-radius:15px;
-padding:15px;
-border:1px solid #111;
-}
-
-.thumb{
-height:120px;
-background:linear-gradient(45deg,#00cfff,#6366f1);
-border-radius:10px;
-}
-
-/* COURSE */
 .course{
 display:none;
 padding:20px;
-max-width:900px;
-margin:auto;
-}
-
-.back{
-border:1px solid #00cfff;
-color:#00cfff;
-background:transparent;
-padding:8px 15px;
-border-radius:20px;
-cursor:pointer;
-margin-bottom:15px;
 }
 
 /* TOAST */
@@ -131,15 +95,19 @@ position:fixed;
 top:20px;
 right:20px;
 background:#111827;
-padding:10px 14px;
+padding:12px;
 border-radius:10px;
 opacity:0;
 transition:0.3s;
+z-index:9999;
 }
 
-.toast.show{
-opacity:1;
-}
+.toast.show{opacity:1}
+
+.toast.success{border-right:4px solid #22c55e}
+.toast.error{border-right:4px solid #ef4444}
+.toast.info{border-right:4px solid #00cfff}
+
 </style>
 </head>
 
@@ -161,7 +129,6 @@ opacity:1;
 <input id="logEmail" placeholder="Email">
 <input id="logPass" type="password" placeholder="Password">
 <button class="btn-main" onclick="login()">Login</button>
-<p style="color:#00cfff;cursor:pointer" onclick="showRegister()">إنشاء حساب</p>
 </div>
 
 <div id="registerBox" style="display:none">
@@ -170,7 +137,6 @@ opacity:1;
 <input id="regPass" type="password">
 <input id="regPass2" type="password">
 <button class="btn-main" onclick="register()">Create</button>
-<p style="color:#00cfff;cursor:pointer" onclick="showLogin()">رجوع</p>
 </div>
 
 </div>
@@ -178,52 +144,11 @@ opacity:1;
 
 <!-- DASHBOARD -->
 <div id="dashboard" class="dashboard">
-
 <h2>🎓 الكورسات</h2>
-
-<div class="grid">
-
-<div class="card">
-<div class="thumb"></div>
-<h3>HTML Course</h3>
-<p>تعلم HTML من الصفر</p>
-<button onclick="openCourse('HTML')">ابدأ</button>
-</div>
-
-<div class="card">
-<div class="thumb"></div>
-<h3>CSS Course</h3>
-<p>تصميم احترافي</p>
-<button onclick="openCourse('CSS')">ابدأ</button>
-</div>
-
-<div class="card">
-<div class="thumb"></div>
-<h3>JavaScript</h3>
-<p>برمجة تفاعلية</p>
-<button onclick="openCourse('JS')">ابدأ</button>
-</div>
-
-</div>
 </div>
 
 <!-- COURSE -->
-<div id="course" class="course">
-
-<button class="back" onclick="back()">⬅ الرجوع للكورسات</button>
-
-<div id="content"></div>
-
-<!-- 🔥 واتساب (رجعته بشكل جميل) -->
-<div style="margin-top:30px;text-align:center">
-<a href="https://wa.me/249900623733" target="_blank">
-<button class="btn-main" style="width:200px">
-📞 تواصل واتساب
-</button>
-</a>
-</div>
-
-</div>
+<div id="course" class="course"></div>
 
 <script type="module">
 
@@ -236,6 +161,7 @@ onAuthStateChanged,
 signOut
 } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
 
+/* 🔥 FIXED FIREBASE CONFIG */
 const app = initializeApp({
 apiKey:"AIzaSyBsvF9DneR5H0JbOW4HX_JjVWaajAUgk",
 authDomain:"website-8833c.firebaseapp.com",
@@ -251,33 +177,34 @@ const logoutBtn = document.getElementById("logoutBtn");
 const toast = document.getElementById("toast");
 
 /* TOAST */
-function showToast(msg){
+function showToast(msg,type="info"){
 toast.innerText=msg;
-toast.classList.add("show");
-setTimeout(()=>toast.classList.remove("show"),2000);
+toast.className="toast show "+type;
+setTimeout(()=>toast.classList.remove("show"),2500);
 }
 
-/* LOGIN */
+/* LOGIN (WITH REAL ERROR) */
 window.login=async()=>{
 try{
 await signInWithEmailAndPassword(auth,logEmail.value,logPass.value);
-showToast("تم تسجيل الدخول");
+showToast("تم تسجيل الدخول","success");
 }catch(e){
-showToast("خطأ في البيانات");
+showToast(e.code || e.message,"error");
 }
 }
 
-/* REGISTER */
+/* REGISTER (WITH REAL ERROR) */
 window.register=async()=>{
 if(regPass.value !== regPass2.value){
-showToast("كلمات المرور غير متطابقة");
+showToast("كلمات المرور غير متطابقة","error");
 return;
 }
+
 try{
 await createUserWithEmailAndPassword(auth,regEmail.value,regPass.value);
-showToast("تم إنشاء الحساب");
+showToast("تم إنشاء الحساب","success");
 }catch(e){
-showToast("فشل إنشاء الحساب");
+showToast(e.code || e.message,"error");
 }
 }
 
@@ -286,7 +213,9 @@ onAuthStateChanged(auth,(user)=>{
 if(user){
 authDiv.style.display="none";
 dashboard.style.display="block";
-logoutBtn.style.display="block"; // 🔥 هنا فقط يظهر
+courseDiv.style.display="none";
+logoutBtn.style.display="block";
+showToast("مرحباً " + user.email,"info");
 }else{
 authDiv.style.display="flex";
 dashboard.style.display="none";
@@ -295,35 +224,11 @@ logoutBtn.style.display="none";
 }
 });
 
-/* FORM */
-window.showRegister=()=>{
-loginBox.style.display="none";
-registerBox.style.display="block";
-}
-
-window.showLogin=()=>{
-registerBox.style.display="none";
-loginBox.style.display="block";
-}
-
-/* COURSE */
-window.openCourse=(name)=>{
-dashboard.style.display="none";
-courseDiv.style.display="block";
-content.innerHTML="<h2>"+name+" Course</h2><p>محتوى الكورس</p>";
-}
-
-/* BACK */
-window.back=()=>{
-courseDiv.style.display="none";
-dashboard.style.display="block";
-}
-
 /* LOGOUT */
 logoutBtn.onclick=async()=>{
 await signOut(auth);
-showToast("تم تسجيل الخروج");
-}
+showToast("تم تسجيل الخروج","info");
+};
 
 </script>
 
