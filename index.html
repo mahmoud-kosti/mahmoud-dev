@@ -11,179 +11,171 @@
 body{
   margin:0;
   font-family:'Cairo', sans-serif;
-  background: linear-gradient(180deg,#3b0a6d,#0b0f1a);
-  height:100vh;
-  display:flex;
-  justify-content:center;
-  align-items:center;
+  background:linear-gradient(180deg,#3b0a6d,#0b0f1a);
   color:#fff;
 }
 
-/* logo */
+/* NAV */
+nav{
+  display:flex;
+  justify-content:space-between;
+  padding:15px 25px;
+}
+
 .logo{
-  position:absolute;
-  top:20px;
-  left:50%;
-  transform:translateX(-50%);
-  font-size:22px;
   font-weight:800;
+  font-size:20px;
   background:linear-gradient(90deg,#fff,#00cfff);
   -webkit-background-clip:text;
   -webkit-text-fill-color:transparent;
 }
 
-/* auth */
-.auth-box{
-  background: rgba(255,255,255,0.05);
-  backdrop-filter: blur(20px);
-  padding:40px;
-  border-radius:25px;
-  width:350px;
+/* AUTH */
+.center{
+  height:100vh;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+}
+
+.box{
+  background:rgba(255,255,255,0.05);
+  backdrop-filter:blur(20px);
+  padding:30px;
+  border-radius:20px;
+  width:320px;
   text-align:center;
 }
 
 input{
   width:100%;
-  padding:14px;
-  margin:10px 0;
+  padding:12px;
+  margin:8px 0;
   border:none;
-  border-radius:30px;
+  border-radius:20px;
   background:rgba(255,255,255,0.1);
   color:#fff;
 }
 
-.btn{
+button{
   width:100%;
-  padding:14px;
+  padding:12px;
   border:none;
-  border-radius:30px;
-  background:#fff;
-  color:#000;
-  font-weight:bold;
-  cursor:pointer;
+  border-radius:20px;
   margin-top:10px;
+  cursor:pointer;
+  font-weight:bold;
 }
+
+.btn-main{background:#00cfff;color:#000}
+.btn-out{background:#ff4d4d;color:#fff}
 
 .link{cursor:pointer;margin-top:10px}
 
-.footer{
-  margin-top:20px;
-  font-weight:800;
-}
-
-/* dashboard */
+/* DASHBOARD */
 .dashboard{
-  display:none;
-  text-align:center;
-  width:100%;
+  padding:20px;
 }
 
 .grid{
   display:grid;
   grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
   gap:20px;
-  padding:40px;
+  margin-top:20px;
 }
 
 .card{
   background:#111827;
   padding:20px;
   border-radius:15px;
+  transition:0.3s;
   cursor:pointer;
+  box-shadow:0 0 15px rgba(0,0,0,0.4);
 }
 
-/* course */
+.card:hover{
+  transform:translateY(-5px);
+  border:1px solid #00cfff;
+}
+
+/* COURSE */
 .course{
-  display:none;
-  padding:40px;
+  padding:20px;
   max-width:900px;
   margin:auto;
 }
 
-.back-btn{
+.back{
+  margin-bottom:20px;
+  background:transparent;
   border:1px solid #00cfff;
   color:#00cfff;
-  padding:10px 20px;
-  border-radius:20px;
-  cursor:pointer;
 }
 
-/* toast */
-.toast{
-  position:fixed;
-  top:20px;
-  right:20px;
-  background:#111;
-  padding:10px 20px;
-  border-radius:10px;
-  opacity:0;
-  transition:0.3s;
+/* footer */
+.footer{
+  margin-top:30px;
+  text-align:center;
+  opacity:0.8;
 }
-.toast.show{opacity:1}
 </style>
 </head>
 
 <body>
 
+<nav>
 <div class="logo">HOota Academy</div>
+<button id="logoutBtn" class="btn-out" style="display:none">تسجيل خروج</button>
+</nav>
 
 <!-- AUTH -->
-<div id="auth">
-<div class="auth-box">
+<div id="auth" class="center">
+<div class="box">
 
 <div id="loginBox">
-<h2>Login</h2>
+<h3>Login</h3>
 <input id="logEmail" placeholder="Email">
 <input id="logPass" type="password" placeholder="Password">
-<button class="btn" onclick="login()">Login</button>
-<p class="link" onclick="showRegister()">Register</p>
+<button class="btn-main" onclick="login()">Login</button>
+<p class="link" onclick="showRegister()">Create Account</p>
 </div>
 
 <div id="registerBox" style="display:none">
-<h2>Register</h2>
-<input id="regName" placeholder="Name">
+<h3>Register</h3>
 <input id="regEmail" placeholder="Email">
 <input id="regPass" type="password" placeholder="Password">
 <input id="regPass2" type="password" placeholder="Confirm Password">
-<button class="btn" onclick="register()">Create</button>
+<button class="btn-main" onclick="register()">Register</button>
 <p class="link" onclick="showLogin()">Back</p>
-</div>
-
-<div class="footer">
-حووته<br>HOota.com
 </div>
 
 </div>
 </div>
 
 <!-- DASHBOARD -->
-<div id="dashboard" class="dashboard">
+<div id="dashboard" class="dashboard" style="display:none">
 <h2>🎓 الكورسات</h2>
 
-<button class="btn" onclick="logout()">🚪 تسجيل خروج</button>
-
 <div class="grid">
-<div class="card" onclick="openCourse('html')">HTML</div>
-<div class="card" onclick="openCourse('css')">CSS</div>
-<div class="card" onclick="openCourse('js')">JavaScript</div>
+<div class="card" onclick="openCourse('HTML')">HTML</div>
+<div class="card" onclick="openCourse('CSS')">CSS</div>
+<div class="card" onclick="openCourse('JS')">JavaScript</div>
 </div>
 </div>
 
 <!-- COURSE -->
-<div id="course" class="course">
-<button class="back-btn" onclick="back()">⬅ رجوع</button>
+<div id="course" class="course" style="display:none">
+<button class="back" onclick="back()">⬅ رجوع</button>
 <div id="content"></div>
 
-<hr>
-<p>© جميع حقوق النشر محفوظة لدى Mahmoud Abdallah</p>
-
+<div class="footer">
+© جميع الحقوق محفوظة - Mahmoud Abdallah  
+<br><br>
 <a href="https://wa.me/249900623733" target="_blank">
-<button class="btn" style="background:#25D366;color:#fff;">📞 تواصل واتساب</button>
+<button class="btn-main">📞 واتساب</button>
 </a>
-
 </div>
-
-<div id="toast" class="toast"></div>
+</div>
 
 <script type="module">
 
@@ -199,83 +191,64 @@ signOut
 const firebaseConfig = {
 apiKey: "AIzaSyBsvF9J_DneR5H0JbOW4HX_JjVWaajAUgk",
 authDomain: "website-8833c.firebaseapp.com",
-projectId: "website-8833c",
-storageBucket: "website-8833c.firebasestorage.app",
-messagingSenderId: "831801957212",
-appId: "1:831801957212:web:707b3c8ac71fb67212bf99"
+projectId: "website-8833c"
 };
 
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 
-// toast
-function toast(msg){
-const t=document.getElementById("toast");
-t.innerText=msg;
-t.classList.add("show");
-setTimeout(()=>t.classList.remove("show"),2000);
-}
-
-// switch
+// UI switch
 window.showRegister=()=>{loginBox.style.display="none";registerBox.style.display="block";}
 window.showLogin=()=>{registerBox.style.display="none";loginBox.style.display="block";}
 
 // register
 window.register=async()=>{
 if(regPass.value !== regPass2.value){
-toast("كلمات المرور غير متطابقة ❌");
+alert("كلمة المرور غير متطابقة");
 return;
 }
-try{
 await createUserWithEmailAndPassword(auth,regEmail.value,regPass.value);
-toast("تم إنشاء الحساب ✅");
-showLogin();
-}catch(e){toast(e.message)}
 }
 
 // login
 window.login=async()=>{
-try{
 await signInWithEmailAndPassword(auth,logEmail.value,logPass.value);
-toast("تم تسجيل الدخول ✅");
-
-// 🔥 دخول مباشر
-document.getElementById("auth").style.display="none";
-document.getElementById("dashboard").style.display="block";
-
-}catch(e){toast(e.message)}
 }
 
 // logout
-window.logout=async()=>{
-await signOut(auth);
-toast("تم تسجيل الخروج");
-}
+document.getElementById("logoutBtn").onclick=()=>signOut(auth);
 
-// auth state
+// auth state (FIX 🔥)
 onAuthStateChanged(auth,(user)=>{
 if(user){
-auth.style.display="none";
+authDiv.style.display="none";
 dashboard.style.display="block";
+logoutBtn.style.display="block";
 }else{
-auth.style.display="block";
+authDiv.style.display="flex";
 dashboard.style.display="none";
 course.style.display="none";
+logoutBtn.style.display="none";
 }
 });
 
 // courses
-const courses = {
-html:"<h2>HTML</h2><p>مقدمة</p><p>العناصر</p>".repeat(20),
-css:"<h2>CSS</h2><p>تصميم</p><p>ألوان</p>".repeat(20),
-js:"<h2>JS</h2><p>برمجة</p><p>متغيرات</p>".repeat(20)
-};
-
-// open course
 window.openCourse=(name)=>{
 dashboard.style.display="none";
 course.style.display="block";
-content.innerHTML=courses[name];
+
+content.innerHTML = `
+<h2>${name}</h2>
+<h3>📌 مقدمة</h3>
+<p>شرح شامل للكورس</p>
+
+<h3>📚 الدروس</h3>
+<ul>
+<li>درس 1</li>
+<li>درس 2</li>
+<li>درس 3</li>
+</ul>
+`.repeat(5);
 }
 
 // back
