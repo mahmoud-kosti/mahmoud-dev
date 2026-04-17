@@ -19,16 +19,6 @@ body{
   color:#fff;
 }
 
-/* stars */
-body::before{
-  content:"";
-  position:absolute;
-  width:100%;
-  height:100%;
-  background:url("https://www.transparenttextures.com/patterns/stardust.png");
-  opacity:0.4;
-}
-
 /* logo */
 .logo{
   position:absolute;
@@ -44,9 +34,8 @@ body::before{
 
 /* auth */
 .auth-box{
-  backdrop-filter: blur(20px);
   background: rgba(255,255,255,0.05);
-  border:1px solid rgba(255,255,255,0.2);
+  backdrop-filter: blur(20px);
   padding:40px;
   border-radius:25px;
   width:350px;
@@ -75,10 +64,10 @@ input{
   margin-top:10px;
 }
 
-.link{margin-top:10px;cursor:pointer}
+.link{cursor:pointer;margin-top:10px}
 
 .footer{
-  margin-top:25px;
+  margin-top:20px;
   font-weight:800;
 }
 
@@ -109,7 +98,6 @@ input{
   padding:40px;
   max-width:900px;
   margin:auto;
-  overflow:auto;
 }
 
 .back-btn{
@@ -118,12 +106,6 @@ input{
   padding:10px 20px;
   border-radius:20px;
   cursor:pointer;
-  margin-bottom:15px;
-}
-
-.whatsapp{
-  background:#25D366;
-  color:#fff;
 }
 
 /* toast */
@@ -161,7 +143,8 @@ input{
 <h2>Register</h2>
 <input id="regName" placeholder="Name">
 <input id="regEmail" placeholder="Email">
-<input id="regPass" type="password">
+<input id="regPass" type="password" placeholder="Password">
+<input id="regPass2" type="password" placeholder="Confirm Password">
 <button class="btn" onclick="register()">Create</button>
 <p class="link" onclick="showLogin()">Back</p>
 </div>
@@ -192,11 +175,10 @@ input{
 <div id="content"></div>
 
 <hr>
-
 <p>© جميع حقوق النشر محفوظة لدى Mahmoud Abdallah</p>
 
 <a href="https://wa.me/249900623733" target="_blank">
-<button class="btn whatsapp">📞 تواصل عبر واتساب</button>
+<button class="btn" style="background:#25D366;color:#fff;">📞 تواصل واتساب</button>
 </a>
 
 </div>
@@ -240,9 +222,13 @@ window.showLogin=()=>{registerBox.style.display="none";loginBox.style.display="b
 
 // register
 window.register=async()=>{
+if(regPass.value !== regPass2.value){
+toast("كلمات المرور غير متطابقة ❌");
+return;
+}
 try{
 await createUserWithEmailAndPassword(auth,regEmail.value,regPass.value);
-toast("تم إنشاء الحساب");
+toast("تم إنشاء الحساب ✅");
 showLogin();
 }catch(e){toast(e.message)}
 }
@@ -251,7 +237,12 @@ showLogin();
 window.login=async()=>{
 try{
 await signInWithEmailAndPassword(auth,logEmail.value,logPass.value);
-toast("تم تسجيل الدخول");
+toast("تم تسجيل الدخول ✅");
+
+// 🔥 دخول مباشر
+document.getElementById("auth").style.display="none";
+document.getElementById("dashboard").style.display="block";
+
 }catch(e){toast(e.message)}
 }
 
@@ -273,11 +264,11 @@ course.style.display="none";
 }
 });
 
-// courses content
+// courses
 const courses = {
-html: "<h2>HTML</h2><h3>مقدمة</h3><p>HTML هي أساس المواقع</p><h3>العناصر</h3><p>تعلم الوسوم</p>".repeat(20),
-css: "<h2>CSS</h2><h3>مقدمة</h3><p>CSS للتصميم</p><h3>الألوان</h3><p>تنسيق المواقع</p>".repeat(20),
-js: "<h2>JavaScript</h2><h3>مقدمة</h3><p>لغة برمجة</p><h3>المتغيرات</h3><p>تعلم الأساسيات</p>".repeat(20)
+html:"<h2>HTML</h2><p>مقدمة</p><p>العناصر</p>".repeat(20),
+css:"<h2>CSS</h2><p>تصميم</p><p>ألوان</p>".repeat(20),
+js:"<h2>JS</h2><p>برمجة</p><p>متغيرات</p>".repeat(20)
 };
 
 // open course
