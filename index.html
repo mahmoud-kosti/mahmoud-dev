@@ -13,12 +13,14 @@
 :root{
   --bg-primary: #0A0E1A;
   --bg-secondary: #111827;
-  --card-bg: rgba(17, 24, 39, 0.7);
+  --card-bg: rgba(17, 24, 39, 0.75);
   --border: rgba(255, 255, 255, 0.08);
   --primary: #00E5FF;
   --primary-glow: rgba(0, 229, 255, 0.4);
   --secondary: #8B5CF6;
+  --secondary-glow: rgba(139, 92, 246, 0.4);
   --danger: #F43F5E;
+  --success: #10B981;
   --text: #F9FAFB;
   --text-muted: #9CA3AF;
   --blur: 20px;
@@ -32,19 +34,18 @@ body{
   color: var(--text);
   min-height: 100vh;
   overflow-x: hidden;
-  position: relative;
 }
 
-/* Animated Gradient Background */
+/* Animated Gradient Background 2026 */
 body::before{
   content:'';
   position: fixed;
   top: 0; left: 0;
   width: 100%; height: 100%;
   background:
-    radial-gradient(circle at 15% 30%, rgba(0, 229, 255, 0.15), transparent 40%),
-    radial-gradient(circle at 85% 70%, rgba(139, 92, 246, 0.15), transparent 40%),
-    radial-gradient(circle at 50% 50%, rgba(236, 72, 153, 0.1), transparent 50%);
+    radial-gradient(circle at 15% 30%, rgba(0, 229, 255, 0.18), transparent 40%),
+    radial-gradient(circle at 85% 70%, rgba(139, 92, 246, 0.18), transparent 40%),
+    radial-gradient(circle at 50% 50%, rgba(236, 72, 153, 0.12), transparent 50%);
   z-index: -1;
   animation: gradientMove 25s infinite alternate ease-in-out;
 }
@@ -63,7 +64,7 @@ nav{
   justify-content: space-between;
   align-items: center;
   padding: 14px 20px;
-  background: rgba(10, 14, 26, 0.8);
+  background: rgba(10, 14, 26, 0.85);
   backdrop-filter: blur(var(--blur));
   -webkit-backdrop-filter: blur(var(--blur));
   border-bottom: 1px solid var(--border);
@@ -78,7 +79,7 @@ nav{
   background-clip: text;
 }
 
-/* Button Base + Ripple Effect */
+/* Button Base + Ripple */
 button{
   position: relative;
   overflow: hidden;
@@ -93,6 +94,12 @@ button{
 
 button:active{
   transform: scale(0.96);
+}
+
+button:disabled{
+  opacity: 0.5;
+  cursor: not-allowed;
+  transform: none!important;
 }
 
 button.ripple{
@@ -154,11 +161,6 @@ button.ripple{
   transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-.box:hover{
-  transform: translateY(-5px);
-  box-shadow: 0 25px 70px rgba(0, 0, 0, 0.6);
-}
-
 input{
   width: 100%;
   padding: 14px 16px;
@@ -200,12 +202,6 @@ input::placeholder{
   transform: translateY(-3px);
 }
 
-.btn-main:disabled{
-  opacity: 0.5;
-  cursor: not-allowed;
-  transform: none;
-}
-
 .link{
   cursor: pointer;
   margin-top: 16px;
@@ -213,6 +209,7 @@ input::placeholder{
   font-size: 14px;
   font-weight: 600;
   transition: 0.3s;
+  display: inline-block;
 }
 
 .link:hover{
@@ -272,7 +269,6 @@ h3{
   gap: 20px;
 }
 
-/* CARD */
 .card{
   background: var(--card-bg);
   backdrop-filter: blur(var(--blur));
@@ -281,7 +277,6 @@ h3{
   border-radius: 20px;
   overflow: hidden;
   transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-  cursor: pointer;
 }
 
 .card:hover{
@@ -396,17 +391,7 @@ h3{
   color: #fff;
 }
 
-/* Mobile Optimization */
-@media (max-width: 480px){
- .box{padding: 30px 20px;}
- .grid{grid-template-columns: 1fr;}
-  nav{padding: 12px 16px;}
- .logo{font-size: 20px;}
-  h3{font-size: 22px;}
- .dashboard h2{font-size: 24px;}
-}
-
-/* Toast */
+/* Toast - بدل الـ Alert */
 .toast{
   position: fixed;
   bottom: 30px;
@@ -421,6 +406,8 @@ h3{
   z-index: 1000;
   opacity: 0;
   transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  max-width: 90%;
+  text-align: center;
 }
 
 .toast.show{
@@ -428,8 +415,18 @@ h3{
   transform: translateX(-50%) translateY(0);
 }
 
-.toast.success{border-color: #10B981; color: #10B981;}
+.toast.success{border-color: var(--success); color: var(--success);}
 .toast.error{border-color: var(--danger); color: var(--danger);}
+
+/* Mobile */
+@media (max-width: 480px){
+.box{padding: 30px 20px;}
+.grid{grid-template-columns: 1fr;}
+  nav{padding: 12px 16px;}
+.logo{font-size: 20px;}
+  h3{font-size: 22px;}
+.dashboard h2{font-size: 24px;}
+}
 </style>
 </head>
 
@@ -547,16 +544,17 @@ const courseDiv = document.getElementById("course");
 const logoutBtn = document.getElementById("logoutBtn");
 const toast = document.getElementById("toast");
 
-// Ripple Effect Function
+// Ripple Effect
 function createRipple(event){
   const button = event.currentTarget;
   const circle = document.createElement("span");
   const diameter = Math.max(button.clientWidth, button.clientHeight);
   const radius = diameter / 2;
+  const rect = button.getBoundingClientRect();
 
   circle.style.width = circle.style.height = `${diameter}px`;
-  circle.style.left = `${event.clientX - button.offsetLeft - radius}px`;
-  circle.style.top = `${event.clientY - button.offsetTop - radius}px`;
+  circle.style.left = `${event.clientX - rect.left - radius}px`;
+  circle.style.top = `${event.clientY - rect.top - radius}px`;
   circle.classList.add("ripple");
 
   const ripple = button.getElementsByClassName("ripple")[0];
@@ -565,20 +563,28 @@ function createRipple(event){
   button.appendChild(circle);
 }
 
-// Add ripple to all buttons
 document.addEventListener('click', function(e){
   if(e.target.closest('button')){
     createRipple(e);
   }
 });
 
-// Toast Function
+// Toast Function - ترجمة الأخطاء
 function showToast(message, type = 'success'){
-  toast.textContent = message;
+  const errors = {
+    'auth/email-already-in-use': 'البريد الإلكتروني مستخدم بالفعل',
+    'auth/invalid-email': 'البريد الإلكتروني غير صحيح',
+    'auth/weak-password': 'كلمة المرور ضعيفة جداً',
+    'auth/user-not-found': 'الحساب غير موجود',
+    'auth/wrong-password': 'كلمة المرور خاطئة',
+    'auth/too-many-requests': 'محاولات كثيرة، حاول لاحقاً'
+  };
+
+  toast.textContent = errors[message] || message;
   toast.className = `toast ${type} show`;
   setTimeout(() => {
     toast.className = 'toast';
-  }, 3000);
+  }, 3500);
 }
 
 logoutBtn.onclick = async ()=>{
@@ -597,28 +603,37 @@ window.showLogin = ()=>{
 }
 
 window.register = async ()=>{
+  const btn = event.target;
   if(regPass.value!== regPass2.value){
     showToast('كلمة المرور غير متطابقة', 'error');
     return;
   }
   if(regPass.value.length < 6){
-    showToast('كلمة المرور قصيرة جداً', 'error');
+    showToast('كلمة المرور يجب أن تكون 6 أحرف على الأقل', 'error');
     return;
   }
+
+  btn.disabled = true;
   try{
     await createUserWithEmailAndPassword(auth, regEmail.value, regPass.value);
     showToast('تم إنشاء الحساب بنجاح', 'success');
   }catch(error){
-    showToast(error.message, 'error');
+    showToast(error.code, 'error');
+  }finally{
+    btn.disabled = false;
   }
 }
 
 window.login = async ()=>{
+  const btn = event.target;
+  btn.disabled = true;
   try{
     await signInWithEmailAndPassword(auth, logEmail.value, logPass.value);
     showToast('مرحباً بك', 'success');
   }catch(error){
-    showToast('خطأ في البيانات', 'error');
+    showToast(error.code, 'error');
+  }finally{
+    btn.disabled = false;
   }
 }
 
@@ -636,8 +651,8 @@ onAuthStateChanged(auth, (user)=>{
 });
 
 const courses = {
-html: "<h2>HTML Course</h2><p>كورس HTML كامل من الصفر حتى الاحتراف. تعلم بناء هيكل المواقع.</p>".repeat(30),
-css: "<h2>CSS Course</h2><p>تعلم تصميم الواجهات الاحترافية والتأثيرات البصرية.</p>".repeat(30),
+html: "<h2>HTML Course</h2><p>كورس HTML كامل من الصفر حتى الاحتراف. تعلم بناء هيكل المواقع بطريقة صحيحة.</p>".repeat(30),
+css: "<h2>CSS Course</h2><p>تعلم تصميم الواجهات الاحترافية والتأثيرات البصرية العصرية.</p>".repeat(30),
 js: "<h2>JavaScript Course</h2><p>برمجة تفاعلية ومتقدمة للمواقع والتطبيقات.</p>".repeat(30)
 };
 
